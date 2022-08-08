@@ -11,6 +11,9 @@ class MainController extends AbstractController
     #[Route('/', name: 'app_main')]
     public function index(): RedirectResponse
     {
+        if ($this->getUser()){
+            return $this->redirectToRoute('app_set_collector');
+        }
         return $this->redirectToRoute('app_login');
     }
 }
