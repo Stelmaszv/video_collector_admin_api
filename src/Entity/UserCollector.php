@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserCollectorRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserCollectorRepository::class)]
@@ -22,6 +24,18 @@ class UserCollector
 
     #[ORM\Column]
     private ?bool $can_delete = null;
+
+    #[ORM\ManyToMany(targetEntity: Collectors::class, mappedBy: 'ManyToMany')]
+    private Collection $yes;
+
+    #[ORM\ManyToMany(targetEntity: Collectors::class, mappedBy: 'UserController')]
+    private Collection $collectors;
+
+    public function __construct()
+    {
+        $this->yes = new ArrayCollection();
+        $this->collectors = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,6 +74,60 @@ class UserCollector
     public function setCanDelete(bool $can_delete): self
     {
         $this->can_delete = $can_delete;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Collectors>
+     */
+    public function getYes(): Collection
+    {
+        return $this->yes;
+    }
+
+    public function addYe(Collectors $ye): self
+    {
+        if (!$this->yes->contains($ye)) {
+            $this->yes->add($ye);
+            $ye->addManyToMany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeYe(Collectors $ye): self
+    {
+        if ($this->yes->removeElement($ye)) {
+            $ye->removeManyToMany($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Collectors>
+     */
+    public function getCollectors(): Collection
+    {
+        return $this->collectors;
+    }
+
+    public function addCollector(Collectors $collector): self
+    {
+        if (!$this->collectors->contains($collector)) {
+            $this->collectors->add($collector);
+            $collector->addUserController($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCollector(Collectors $collector): self
+    {
+        if ($this->collectors->removeElement($collector)) {
+            $collector->removeUserController($this);
+        }
 
         return $this;
     }
