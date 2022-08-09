@@ -1,3 +1,13 @@
+Setcollector:
+    path:   /setcollector
+    controller: App\Controller\SetCollectorController::listView
+    defaults:
+      _format: html
+    requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+
 controllers:
     resource: ../src/Controller/
     type: attribute

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SetCollectorController!{% endblock %}
+
+{% block body %}
+    {{ include('@navbars/setcollector.twig') }}
+    <ul>
+        <li>
+            {% for el in object %}
+                {{ el.name }}
+            {% endfor %}
+        </li>
+    </ul>
+{% endblock %}

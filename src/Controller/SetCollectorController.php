@@ -5,14 +5,15 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Generic\GenericSetDataInterFace;
+use App\Generic\GenericListController;
+use App\Entity\Collectors;
 
-class SetCollectorController extends AbstractController
+class SetCollectorController extends GenericListController implements GenericSetDataInterFace
 {
-    #[Route('/setcollector', name: 'app_set_collector')]
-    public function index(): Response
+    public function setData(): void
     {
-        return $this->render('set_collector/index.html.twig', [
-            'controller_name' => 'SetCollectorController',
-        ]);
+        $this->setEntity(Collectors::class);
+        $this->setTwig('controllers/list.html.twig');
     }
 }
