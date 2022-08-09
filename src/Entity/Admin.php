@@ -29,15 +29,10 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToOne(mappedBy: 'User', cascade: ['persist', 'remove'])]
-    private ?UserCollector $userCollector = null;
-
-    #[ORM\OneToMany(mappedBy: 'admin', targetEntity: UserCollector::class, orphanRemoval: true)]
-    private Collection $Can_edit_items;
 
     public function __construct()
     {
-        $this->Can_edit_items = new ArrayCollection();
+       
     }
 
     public function getId(): ?int
@@ -108,52 +103,5 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function getUserCollector(): ?UserCollector
-    {
-        return $this->userCollector;
-    }
-
-    public function setUserCollector(UserCollector $userCollector): self
-    {
-        // set the owning side of the relation if necessary
-        if ($userCollector->getUser() !== $this) {
-            $userCollector->setUser($this);
-        }
-
-        $this->userCollector = $userCollector;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, UserCollector>
-     */
-    public function getCanEditItems(): Collection
-    {
-        return $this->Can_edit_items;
-    }
-
-    public function addCanEditItem(UserCollector $canEditItem): self
-    {
-        if (!$this->Can_edit_items->contains($canEditItem)) {
-            $this->Can_edit_items->add($canEditItem);
-            $canEditItem->setAdmin($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCanEditItem(UserCollector $canEditItem): self
-    {
-        if ($this->Can_edit_items->removeElement($canEditItem)) {
-            // set the owning side to null (unless already changed)
-            if ($canEditItem->getAdmin() === $this) {
-                $canEditItem->setAdmin(null);
-            }
-        }
-
-        return $this;
     }
 }
