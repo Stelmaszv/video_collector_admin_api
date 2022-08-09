@@ -25,6 +25,8 @@ class UserCollector
     #[ORM\JoinColumn(nullable: false)]
     private ?Collectors $Collector = null;
 
+    #[ORM\ManyToOne(inversedBy: 'userCollectors')]
+    private ?Admin $Admin = null;
 
     public function __construct()
     {
@@ -48,8 +50,17 @@ class UserCollector
         return $this;
     }
 
+    public function getAdmin(): ?Admin
+    {
+        return $this->Admin;
+    }
 
+    public function setAdmin(?Admin $Admin): self
+    {
+        $this->Admin = $Admin;
 
+        return $this;
+    }
 
 
 }

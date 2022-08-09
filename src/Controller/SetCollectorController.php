@@ -7,13 +7,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Generic\GenericSetDataInterFace;
 use App\Generic\GenericListController;
-use App\Entity\Collectors;
+use App\Entity\UserCollector;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 class SetCollectorController extends GenericListController implements GenericSetDataInterFace
 {
     public function setData(): void
     {
-        $this->setEntity(Collectors::class);
+        $this->setEntity(UserCollector::class);
         $this->setTwig('controllers/list.html.twig');
     }
+
+    public function onQuerySet(ServiceEntityRepository $entityManager)
+    {
+       return $entityManager->findUserController($this->getUser());
+    }
+
 }

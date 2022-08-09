@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\UserCollector;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Admin;
 
 /**
  * @extends ServiceEntityRepository<UserCollector>
@@ -37,6 +38,17 @@ class UserCollectorRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findUserController(Admin $Admin): array
+    {
+        return $this->createQueryBuilder('c')
+        ->select('col.Name')
+        ->innerJoin('c.Collector', 'col')
+        ->andWhere('c.Admin  = :val')
+        ->setParameter('val', $Admin)
+        ->getQuery()
+        ->getResult();
     }
 
 //    /**

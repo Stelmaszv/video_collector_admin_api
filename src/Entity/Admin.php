@@ -29,11 +29,14 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[ORM\OneToMany(mappedBy: 'Admin', targetEntity: UserCollector::class)]
+    private Collection $userCollectors;
 
     public function __construct()
     {
-       
+        $this->userCollectors = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -104,4 +107,36 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    /**
+     * @return Collection<int, UserCollector>
+     */
+    public function getUserCollectors(): Collection
+    {
+        return $this->userCollectors;
+    }
+
+    public function addUserCollector(UserCollector $userCollector): self
+    {
+        if (!$this->userCollectors->contains($userCollector)) {
+            $this->userCollectors->add($userCollector);
+            $userCollector->setAdmin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserCollector(UserCollector $userCollector): self
+    {
+        if ($this->userCollectors->removeElement($userCollector)) {
+            // set the owning side to null (unless already changed)
+            if ($userCollector->getAdmin() === $this) {
+                $userCollector->setAdmin(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }
