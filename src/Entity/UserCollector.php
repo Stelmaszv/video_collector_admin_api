@@ -21,15 +21,34 @@ class UserCollector
     #[ORM\Column]
     private ?bool $can_delete = null;
 
+    #[ORM\ManyToOne(inversedBy: 'userCollectors')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Collectors $Collector = null;
+
+
     public function __construct()
     {
-
+       
     }
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
+    public function getCollector(): ?Collectors
+    {
+        return $this->Collector;
+    }
+
+    public function setCollector(?Collectors $Collector): self
+    {
+        $this->Collector = $Collector;
+
+        return $this;
+    }
+
+
 
 
 
