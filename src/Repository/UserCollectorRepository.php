@@ -43,7 +43,7 @@ class UserCollectorRepository extends ServiceEntityRepository
     public function findUserController(Admin $Admin): array
     {
         return $this->createQueryBuilder('c')
-        ->select('col.Name')
+        ->select('col.Name','col.id','c.can_edit')
         ->innerJoin('c.Collector', 'col')
         ->andWhere('c.Admin  = :val')
         ->setParameter('val', $Admin)

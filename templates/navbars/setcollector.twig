@@ -2,14 +2,16 @@
     <li class="nav-item">
        <a class="nav-link" href="{{ path('app_main') }}">Main</a>
     </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Colectors</a>
-        <div class="dropdown-menu">
-            {% for el in object %}
-                <a class="dropdown-item" href="#">{{ el['Name'] }}</a>
-            {% endfor %}
-        </div>
-    </li>
+    {% if object %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Colectors</a>
+            <div class="dropdown-menu">
+                {% for el in object %}
+                    <a class="dropdown-item" href="#">{{ el['Name'] }}</a>
+                {% endfor %}
+            </div>
+        </li>
+    {% endif %}
     
     {% if app.user %}
         <li class="nav-item dropdown">

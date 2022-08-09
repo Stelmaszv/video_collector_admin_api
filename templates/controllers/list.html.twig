@@ -1,13 +1,23 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Hello SetCollectorController!{% endblock %}
-
 {% block body %}
     {{ include('@navbars/setcollector.twig') }}
     <ul>
         <li>
+            
             {% for el in object %}
                 {{ el['Name'] }}
+                {% if el['can_edit'] %}
+                    <a href="{{path('CollectorScan',
+                        {
+                            controller:el['Name'],
+                            controllerid:el['id']
+                        }
+                    
+                    )}}">
+                        Scan
+                    </a>
+                {% endif %}
             {% endfor %}
         </li>
     </ul>
