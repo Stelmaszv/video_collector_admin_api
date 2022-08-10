@@ -8,6 +8,7 @@ use App\Entity\UserCollector;
 use App\Repository\UserCollectorRepository;
 use App\Entity\Series;
 use App\Entity\Producent;
+use App\Entity\Movies;
 
 class CollectorScanController extends AbstractController
 {
@@ -19,7 +20,7 @@ class CollectorScanController extends AbstractController
             $json = $this->getDist($controller);
             $this->addProducents($json->producents,$doctrine);
             $this->addSeries($json->series,$doctrine);
-            //$this->addMovies();
+            $this->addMovies($json->movies,$doctrine);
             //$this->addStars();
             
             return $this->render('collector_scan/index.html.twig', [
@@ -32,6 +33,29 @@ class CollectorScanController extends AbstractController
         }
     }
 
+    private function addMovies($array,ManagerRegistry $doctrine){
+        $repository = $doctrine->getManager()->getRepository(Movies::class);
+        foreach($array as $elemnt){
+            $entity=$repository->faindIfExist($elemnt->name);
+            if (!$entity){
+                $entity= new Movies();
+            }
+            $em = $doctrine->getManager();
+            $entity->setName($elemnt->name);
+            $entity->setFullName($elemnt->full_name);
+            $entity->setDir($elemnt->dir); //fix dir 
+            $entity->setShowName($elemnt->show_name);
+            $entity->setDescription($elemnt->description);
+            $entity->setSrc($elemnt->dir);
+            $entity->setCountry($elemnt->country);
+            $entity->setPoster($elemnt->poster);
+            //$entity->setCover($elemnt->cover); set in setter
+            //$entity->setDateRelesed($elemnt->date_relesed); set in setter
+            $em->persist($entity);
+            $em->flush();
+        }
+    }
+
     private function addProducents($array,ManagerRegistry $doctrine){
         $repository = $doctrine->getManager()->getRepository(Producent::class);
         foreach($array as $elemnt){
@@ -41,7 +65,7 @@ class CollectorScanController extends AbstractController
             }
             $em = $doctrine->getManager();
             $entity->setName($elemnt->name);
-            $entity->setDir($elemnt->dir);
+            $entity->setDir($elemnt->dir); //fix dir 
             $entity->setShowName($elemnt->show_name);
             $entity->setDescription($elemnt->description);
             $entity->setCountry($elemnt->country);
@@ -59,7 +83,7 @@ class CollectorScanController extends AbstractController
             }
             $em = $doctrine->getManager();
             $entity->setName($elemnt->name);
-            $entity->setDir($elemnt->dir);
+            $entity->setDir($elemnt->dir); //fix dir 
             $entity->setShowName($elemnt->show_name);
             $entity->setDescription($elemnt->description);
             $entity->setCountry($elemnt->country);
