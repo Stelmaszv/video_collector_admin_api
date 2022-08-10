@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\UserCollector;
 use App\Repository\UserCollectorRepository;
 use App\Entity\Series;
+use App\Entity\Producent;
 
 class CollectorScanController extends AbstractController
 {
@@ -16,7 +17,7 @@ class CollectorScanController extends AbstractController
         $repository = $doctrine->getManager()->getRepository(UserCollector::class);
         if ($this->can_edit($repository,$controllerid)){
             $json = $this->getDist($controller);
-            $this->addProducents($json->producents);
+            $this->addProducents($json->producents,$doctrine);
             $this->addSeries($json->series,$doctrine);
             //$this->addMovies();
             //$this->addStars();
@@ -31,8 +32,22 @@ class CollectorScanController extends AbstractController
         }
     }
 
-    private function addProducents($array){
-        var_dump($array);
+    private function addProducents($array,ManagerRegistry $doctrine){
+        $repository = $doctrine->getManager()->getRepository(Producent::class);
+        foreach($array as $elemnt){
+            $entity=$repository->faindIfExist($elemnt->name);
+            if (!$entity){
+                $entity= new Producent();
+            }
+            $em = $doctrine->getManager();
+            $entity->setName($elemnt->name);
+            $entity->setDir($elemnt->dir);
+            $entity->setShowName($elemnt->show_name);
+            $entity->setDescription($elemnt->description);
+            $entity->setCountry($elemnt->country);
+            $em->persist($entity);
+            $em->flush();
+        }
     }
 
     private function addSeries($array,ManagerRegistry $doctrine){

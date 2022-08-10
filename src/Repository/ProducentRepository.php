@@ -39,6 +39,14 @@ class ProducentRepository extends ServiceEntityRepository
         }
     }
 
+    public function faindIfExist(string $name){
+        return $this->createQueryBuilder('c')
+        ->andWhere('c.name  = :val')
+        ->setParameter('val', $name)
+        ->getQuery()
+        ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Producent[] Returns an array of Producent objects
 //     */
