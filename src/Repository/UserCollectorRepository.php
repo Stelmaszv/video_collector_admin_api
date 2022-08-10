@@ -51,6 +51,22 @@ class UserCollectorRepository extends ServiceEntityRepository
         ->getResult();
     }
 
+    public function can_edit(Admin $Admin,int $controllerId): bool
+    {
+        $query= $this->createQueryBuilder('c')
+        ->andWhere('c.Admin  = :val')
+        ->setParameter('val', $Admin)
+        ->andWhere('c.Collector  = :val2')
+        ->setParameter('val2', $controllerId)
+        ->getQuery()
+        ->getResult();
+        
+        foreach($query as $el){
+            return $el->getCanEdit();
+        }
+        return false;
+    }
+
 //    /**
 //     * @return UserCollector[] Returns an array of UserCollector objects
 //     */

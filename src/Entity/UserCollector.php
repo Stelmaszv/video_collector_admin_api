@@ -33,6 +33,10 @@ class UserCollector
        
     }
 
+    public function getCanEdit(){
+        return $this->can_edit;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
