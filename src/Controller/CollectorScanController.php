@@ -32,7 +32,7 @@ class CollectorScanController extends AbstractController
     }
 
     private function addProducents($array){
-        //var_dump($array);
+        var_dump($array);
     }
 
     private function addSeries($array,ManagerRegistry $doctrine){
