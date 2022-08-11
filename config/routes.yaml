@@ -8,6 +8,16 @@ Setcollector:
       _format:  html|rss
       year:     \d+
 
+MoviesList:
+    path:   /showcollector/movies/{{collector}}/
+    controller: App\Controller\MoviesListController::listView
+    defaults:
+      _format: html
+    requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+
 controllers:
     resource: ../src/Controller/
     type: attribute

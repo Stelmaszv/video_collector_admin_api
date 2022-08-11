@@ -27,13 +27,11 @@ class CollectorScanController extends AbstractController
             $this->addMovies($json->movies,$doctrine);
             $this->addStars($json->stars,$doctrine);
             
-            return $this->render('collector_scan/index.html.twig', [
-            'controller_name' => 'CollectorScanController',
+            return $this->redirectToRoute('MoviesList',[
+                'collector'=> $this->collector
             ]);
         }else{
-            return $this->render('collector_scan/index.html.twig', [
-                'controller_name' => 'canot add',
-            ]);
+            return $this->redirectToRoute('Authorized');
         }
     }
 

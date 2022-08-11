@@ -37,6 +37,7 @@ security:
     access_control:
         - { path: ^/setcollector, roles: ROLE_ADMIN }
         - { path: ^/collectorscan/, roles: ROLE_ADMIN }
+        - { path: ^/showcollector/, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
