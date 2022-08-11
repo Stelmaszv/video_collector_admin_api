@@ -91,9 +91,8 @@ class Movies
     }
 
     public function setSrc(string $src): self
-    {
+    {   
         $this->src = $src;
-
         return $this;
     }
 

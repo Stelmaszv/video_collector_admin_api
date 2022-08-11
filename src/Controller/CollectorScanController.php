@@ -13,12 +13,15 @@ use App\Entity\Stars;
 
 class CollectorScanController extends AbstractController
 {
-    #[Route('/collectorscan/{{controller}}/{{controllerid}}', name: 'CollectorScan')]
-    public function index(string $controller,int $controllerid,ManagerRegistry $doctrine): Response
+    private string $collector='';
+
+    #[Route('/collectorscan/{{collector}}/{{controllerid}}', name: 'CollectorScan')]
+    public function index(string $collector,int $controllerid,ManagerRegistry $doctrine): Response
     {
+        $this->collector=$collector;
         $repository = $doctrine->getManager()->getRepository(UserCollector::class);
-        if ($this->can_edit($repository,$controllerid)){
-            $json = $this->getDist($controller);
+        if ($this->canEdit($repository,$controllerid)){
+            $json = $this->getDist($this->collector);
             $this->addProducents($json->producents,$doctrine);
             $this->addSeries($json->series,$doctrine);
             $this->addMovies($json->movies,$doctrine);
@@ -43,18 +46,17 @@ class CollectorScanController extends AbstractController
             }
             $em = $doctrine->getManager();
             $entity->setName($elemnt->name);
-            $entity->setDir($elemnt->dir); 
+            $entity->setDir($this->getUrl($elemnt->dir)); 
             $entity->setShowName($elemnt->show_name);
             $entity->setDescription($elemnt->description);
             $data= \DateTime::createFromFormat('Y-m-d', $elemnt->date_of_birth);
             if ($data){
                 $entity->setDateRelesed($data);
             }
-            $entity->setAvatar($elemnt->avatar);
+            $entity->setAvatar($this->getUrl($elemnt->avatar));
             $entity->getNationality($elemnt->nationality);
             $entity->setWeight($elemnt->weight);
             $entity->setHeight($elemnt->height);
-
             $em->persist($entity);
             $em->flush();
         }
@@ -70,13 +72,13 @@ class CollectorScanController extends AbstractController
             $em = $doctrine->getManager();
             $entity->setName($elemnt->name);
             $entity->setFullName($elemnt->full_name);
-            $entity->setDir($elemnt->dir); 
+            $entity->setDir($this->getUrl($elemnt->dir)); 
             $entity->setShowName($elemnt->show_name);
             $entity->setDescription($elemnt->description);
-            $entity->setSrc($elemnt->dir);
+            $entity->setSrc($this->getUrl($elemnt->src));
             $entity->setCountry($elemnt->country);
-            $entity->setPoster($elemnt->poster);
-            $entity->setCover($elemnt->cover);
+            $entity->setPoster($this->getUrl($elemnt->poster));
+            $entity->setCover($this->getUrl($elemnt->cover));
             $data= \DateTime::createFromFormat('Y-m-d', $elemnt->date_relesed);
             if ($data){
                 $entity->setDateRelesed($data);
@@ -95,13 +97,14 @@ class CollectorScanController extends AbstractController
             }
             $em = $doctrine->getManager();
             $entity->setName($elemnt->name);
-            $entity->setDir($elemnt->dir); 
+            $entity->setDir($this->getUrl($elemnt->dir)); 
             $entity->setShowName($elemnt->show_name);
             $entity->setDescription($elemnt->description);
             $entity->setCountry($elemnt->country);
             $em->persist($entity);
             $em->flush();
         }
+        
     }
 
     private function addSeries($array,ManagerRegistry $doctrine){
@@ -113,15 +116,14 @@ class CollectorScanController extends AbstractController
             }
             $em = $doctrine->getManager();
             $entity->setName($elemnt->name);
-            $entity->setDir($elemnt->dir);
+            $entity->setDir($this->getUrl($elemnt->dir));
             $entity->setShowName($elemnt->show_name);
             $entity->setDescription($elemnt->description);
-            $entity->setCountry($elemnt->country);
+            $entity->setCountry($this->getUrl($elemnt->country));
             $entity->setYears($elemnt->years);
             $entity->setNumberOfSezons($elemnt->number_of_sezons);
             $em->persist($entity);
             $em->flush();
-
         }
     }
 
@@ -131,9 +133,32 @@ class CollectorScanController extends AbstractController
         return json_decode($petsJson);
     }
 
-    private function can_edit(UserCollectorRepository $repository, int $controllerid): bool
+    private function canEdit(UserCollectorRepository $repository, int $controllerid): bool
     {
         return $repository->can_edit($this->getUser(),$controllerid);
+    }
+
+    private function getUrl(string $url):string
+    {
+        
+        $url_array=explode('\\',$url);
+        $return_url='';
+        $url_txt_add=FALSE;
+        $el=0;
+        foreach($url_array as $url_el){
+            if ($url_el==$this->collector){
+                $url_txt_add=TRUE;
+            }
+
+            if ($url_txt_add){
+                $return_url.=$url_el;
+                if($el<count($url_array)-1){
+                    $return_url.='/';
+                }
+            }
+            $el++;
+        }
+        return $return_url;
     }
 
 }
