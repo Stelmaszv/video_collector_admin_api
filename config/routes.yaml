@@ -18,6 +18,16 @@ MoviesList:
       _format:  html|rss
       year:     \d+
 
+MoviesDeteil:
+    path:   /showcollector/{{collector}}/movies/deteil/{{id}}/
+    controller: App\Controller\MoviesDeteilController::detailView
+    defaults:
+      _format: html
+    requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+
 controllers:
     resource: ../src/Controller/
     type: attribute
