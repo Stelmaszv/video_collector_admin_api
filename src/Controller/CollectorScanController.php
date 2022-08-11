@@ -9,6 +9,7 @@ use App\Repository\UserCollectorRepository;
 use App\Entity\Series;
 use App\Entity\Producent;
 use App\Entity\Movies;
+use App\Entity\Stars;
 
 class CollectorScanController extends AbstractController
 {
@@ -21,7 +22,7 @@ class CollectorScanController extends AbstractController
             $this->addProducents($json->producents,$doctrine);
             $this->addSeries($json->series,$doctrine);
             $this->addMovies($json->movies,$doctrine);
-            //$this->addStars();
+            $this->addStars($json->stars,$doctrine);
             
             return $this->render('collector_scan/index.html.twig', [
             'controller_name' => 'CollectorScanController',
@@ -30,6 +31,32 @@ class CollectorScanController extends AbstractController
             return $this->render('collector_scan/index.html.twig', [
                 'controller_name' => 'canot add',
             ]);
+        }
+    }
+
+    private function addStars($array,$doctrine){
+        $repository = $doctrine->getManager()->getRepository(Stars::class);
+        foreach($array as $elemnt){
+            $entity=$repository->faindIfExist($elemnt->name);
+            if (!$entity){
+                $entity= new Stars();
+            }
+            $em = $doctrine->getManager();
+            $entity->setName($elemnt->name);
+            $entity->setDir($elemnt->dir); 
+            $entity->setShowName($elemnt->show_name);
+            $entity->setDescription($elemnt->description);
+            $data= \DateTime::createFromFormat('Y-m-d', $elemnt->date_of_birth);
+            if ($data){
+                $entity->setDateRelesed($data);
+            }
+            $entity->setAvatar($elemnt->avatar);
+            $entity->getNationality($elemnt->nationality);
+            $entity->setWeight($elemnt->weight);
+            $entity->setHeight($elemnt->height);
+
+            $em->persist($entity);
+            $em->flush();
         }
     }
 
