@@ -28,7 +28,7 @@ class CollectorScanController extends AbstractController
             ]);
         }else{
             return $this->render('collector_scan/index.html.twig', [
-                'controller_name' => 'CollectorScanController',
+                'controller_name' => 'canot add',
             ]);
         }
     }
@@ -43,14 +43,17 @@ class CollectorScanController extends AbstractController
             $em = $doctrine->getManager();
             $entity->setName($elemnt->name);
             $entity->setFullName($elemnt->full_name);
-            $entity->setDir($elemnt->dir); //fix dir 
+            $entity->setDir($elemnt->dir); 
             $entity->setShowName($elemnt->show_name);
             $entity->setDescription($elemnt->description);
             $entity->setSrc($elemnt->dir);
             $entity->setCountry($elemnt->country);
             $entity->setPoster($elemnt->poster);
-            //$entity->setCover($elemnt->cover); set in setter
-            //$entity->setDateRelesed($elemnt->date_relesed); set in setter
+            $entity->setCover($elemnt->cover);
+            $data= \DateTime::createFromFormat('Y-m-d', $elemnt->date_relesed);
+            if ($data){
+                $entity->setDateRelesed($data);
+            }
             $em->persist($entity);
             $em->flush();
         }
@@ -65,7 +68,7 @@ class CollectorScanController extends AbstractController
             }
             $em = $doctrine->getManager();
             $entity->setName($elemnt->name);
-            $entity->setDir($elemnt->dir); //fix dir 
+            $entity->setDir($elemnt->dir); 
             $entity->setShowName($elemnt->show_name);
             $entity->setDescription($elemnt->description);
             $entity->setCountry($elemnt->country);
@@ -83,7 +86,7 @@ class CollectorScanController extends AbstractController
             }
             $em = $doctrine->getManager();
             $entity->setName($elemnt->name);
-            $entity->setDir($elemnt->dir); //fix dir 
+            $entity->setDir($elemnt->dir);
             $entity->setShowName($elemnt->show_name);
             $entity->setDescription($elemnt->description);
             $entity->setCountry($elemnt->country);

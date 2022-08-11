@@ -128,7 +128,7 @@ class Movies
 
     public function setDateRelesed(?\DateTimeInterface $date_relesed): self
     {
-        $this->date_relesed = $date_relesed;
+        $this->date_relesed=$date_relesed;
 
         return $this;
     }
@@ -152,8 +152,12 @@ class Movies
 
     public function setCover(?string $cover): self
     {
-        $this->cover = $cover;
-
+        
+        if ($this->cover == 'getsezon:0'){
+            $this->cover='';
+        }else{
+            $this->cover = $cover;
+        }
         return $this;
     }
 
