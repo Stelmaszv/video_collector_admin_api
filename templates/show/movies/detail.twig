@@ -3,7 +3,127 @@
 {% block body %}
 {{ include('@navbars/collectornavbar.twig') }}
 <center><h2>{{object.name}}</h2></center>
-<img src="/collectors/{{object.poster}}">
+<div class="container text-center">
+    <video width="1200" height="700" controls poster="/collectors/{{object.poster}}">
+        <source src="/collectors/{{object.src}}" type="video/mp4">
+    </video>
+</div>
+<center><h2>Stars</h2></center>
+<center>{{object.description}}</center>
+<center><h2>Covers</h2></center>
+<div class="container text-center">
+  <div class="row">
+    <div class="col">
+      <img src="/collectors/{{object.cover}}" width="300" height="500">
+    </div>
+    <div class="col">
+      Column
+    </div>
+    <div class="col">
+      Column
+    </div>
+    <div class="col">
+      Column
+    </div>
+  </div>
+</div>
+<center><h2>Deteils</h2></center>
+<div class="container text-center">
+    <table class="table">
+    <tbody>
+        <tr>
+            <td>
+                <td>id</div>
+            </td>
+            <td>
+                <td>{{object.id}}</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <td>Name</div>
+            </td>
+            <td>
+                <td>{{object.name}}</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <td>show_name</div>
+            </td>
+            <td>
+                <td>{{object.getShowName()}}</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <td>Series</div>
+            </td>
+            <td>
+                <td>fqf</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <td>Producent</div>
+            </td>
+            <td>
+                <td>fqf</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <td>Dir</div>
+            </td>
+            <td>
+                <td>{{object.dir}}</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <td>Src</div>
+            </td>
+            <td>
+                <td>{{object.src}}</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <td>Country</div>
+            </td>
+            <td>
+                <td>{{object.getCountry()}}</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <td>Cover</div>
+            </td>
+            <td>
+                <td>{{object.getCover()}}</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <td>Poster</div>
+            </td>
+            <td>
+                <td>{{object.getPoster()}}</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <td>Back Cover</div>
+            </td>
+            <td>
+                <td>{{object.getBackCover()}}</div>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+<center><h2>Galery</h2></center>
+
 {% endblock %}
 
 
