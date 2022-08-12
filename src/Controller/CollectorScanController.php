@@ -127,7 +127,7 @@ class CollectorScanController extends AbstractController
 
     private function getDist(string $controller)
     {
-        $petsJson = file_get_contents('../collectors/'.$controller.'/dist.json');
+        $petsJson = file_get_contents('../public/collectors/'.$controller.'/dist.json');
         return json_decode($petsJson);
     }
 

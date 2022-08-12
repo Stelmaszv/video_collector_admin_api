@@ -64,7 +64,7 @@ trait Generic{
         return array_merge($this->attributes, $this->onSetAttribut());
     }
 
-    private function getObjects()
+    protected function getObjects()
     {
         return $this->preaperQuerySet($this->doctrine->getManager());
     }

@@ -1,1 +1,10 @@
-{{object.name}}
+{% extends 'base.html.twig' %}
+{% block title %} {{object.name}} {% endblock %}
+{% block body %}
+{{ include('@navbars/collectornavbar.twig') }}
+<center><h2>{{object.name}}</h2></center>
+<img src="/collectors/{{object.poster}}">
+{% endblock %}
+
+
+

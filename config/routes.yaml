@@ -1,3 +1,13 @@
+Download:
+    path:   /download-file/{id}
+    controller: App\Controller\MoviesDeteilController::downloadFile
+    defaults:
+      _format: html
+    requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+
 Setcollector:
     path:   /setcollector
     controller: App\Controller\SetCollectorController::listView

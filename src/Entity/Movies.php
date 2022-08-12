@@ -44,6 +44,9 @@ class Movies
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $poster = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $back_cover = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -168,6 +171,18 @@ class Movies
     public function setPoster(?string $poster): self
     {
         $this->poster = $poster;
+
+        return $this;
+    }
+
+    public function getBackCover(): ?string
+    {
+        return $this->back_cover;
+    }
+
+    public function setBackCover(string $back_cover): self
+    {
+        $this->back_cover = $back_cover;
 
         return $this;
     }

@@ -1,0 +1,4 @@
+services:
+    _defaults:
+        bind:
+            $privateUploadsFilesystem: '@oneup_flysystem.private_uploads_filesystem_filesystem'
