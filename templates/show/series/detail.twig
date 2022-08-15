@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+{% block title %} {{object.name}} {% endblock %}
+{% block body %}
+{{ include('@navbars/collectornavbar.twig') }}
+    <div class="container text-center">
+        <h2>{{object.getDetelName()}}</h2>
+        <div class="row">
+            <div class="col">
+            <img src="/collectors/{{object.avatar}}" width="250" height="250">
+            </div>
+            <div class="col">
+            {{object.description}}
+            <table class="table table-bordered">
+                <tbody>
+                     <tr>
+                        <td>
+                            Id
+                        </td>
+                        <td>
+                            {{object.id}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Name
+                        </td>
+                        <td>
+                            {{object.name}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Show name
+                        </td>
+                        <td>
+                            {{object.getShowName()}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Dir
+                        </td>
+                        <td>
+                            {{object.dir}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Country
+                        </td>
+                        <td>
+                            {{object.getCountry()}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            years
+                        </td>
+                        <td>
+                            {{object.getYears()}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Number of sezons
+                        </td>
+                        <td>
+                            {{object.getNumberOfSezons()}}
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            </div>
+        </div>
+        <h2>Top Stars</h2>
+        <h2>Photo/Banners</h2>
+        <h2>Movies</h2>
+    </div>
+{% endblock %}
