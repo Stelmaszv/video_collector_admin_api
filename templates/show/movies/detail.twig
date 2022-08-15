@@ -29,86 +29,86 @@
 </div>
 <center><h2>Deteils</h2></center>
 <div class="container text-center">
-    <table class="table">
+    <table class="table table-bordered">
     <tbody>
         <tr>
             <td>
-                <td>id</div>
+                Id
             </td>
             <td>
-                <td>{{object.id}}</div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <td>Name</div>
-            </td>
-            <td>
-                <td>{{object.name}}</div>
+                {{object.id}}
             </td>
         </tr>
         <tr>
             <td>
-                <td>show_name</div>
+                Name
             </td>
             <td>
-                <td>{{object.getShowName()}}</div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <td>Series</div>
-            </td>
-            <td>
-                <td>{{object.getSerie().getDetelName()}}</div>
+                {{object.name}}
             </td>
         </tr>
         <tr>
             <td>
-                <td>Dir</div>
+                show_name
             </td>
             <td>
-                <td>{{object.dir}}</div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <td>Src</div>
-            </td>
-            <td>
-                <td>{{object.src}}</div>
+                {{object.getShowName()}}
             </td>
         </tr>
         <tr>
             <td>
-                <td>Country</div>
+                Series
             </td>
             <td>
-                <td>{{object.getCountry()}}</div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <td>Cover</div>
-            </td>
-            <td>
-                <td>{{object.getCover()}}</div>
+                <a href={{path('SeriesDetail',{id:object.getSerie().getId(),collector:Collector})}}>{{object.getSerie().getDetelName()}}
             </td>
         </tr>
         <tr>
             <td>
-                <td>Poster</div>
+                Dir
             </td>
             <td>
-                <td>{{object.getPoster()}}</div>
+                {{object.dir}}
             </td>
         </tr>
         <tr>
             <td>
-                <td>Back Cover</div>
+                Src
             </td>
             <td>
-                <td>{{object.getBackCover()}}</div>
+                {{object.src}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Country
+            </td>
+            <td>
+                {{object.getCountry()}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Cover
+            </td>
+            <td>
+                {{object.getCover()}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Poster
+            </td>
+            <td>
+                {{object.getPoster()}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Back Cover
+            </td>
+            <td>
+                {{object.getBackCover()}}
             </td>
         </tr>
     </tbody>
