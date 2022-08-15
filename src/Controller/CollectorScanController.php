@@ -78,6 +78,7 @@ class CollectorScanController extends AbstractController
             $entity->setPoster($this->getUrl($elemnt->poster));
             $entity->setCover($this->getUrl($elemnt->cover));
             $entity->setSerie($this->setSeries($elemnt->series,$em));
+            //$entity->setProducent($this->setProducent($elemnt->producent,$em));
             $data= \DateTime::createFromFormat('Y-m-d', $elemnt->date_relesed);
             if ($data){
                 $entity->setDateRelesed($data);
@@ -91,6 +92,12 @@ class CollectorScanController extends AbstractController
     {
         $series = $em->getRepository(Series::class);
         return $series->findOneBy(['name' => $seriesmaname]);
+    }
+
+    private function setProducent(string $producentname,$em)
+    {
+        $series = $em->getRepository(Producent::class);
+        return $series->findOneBy(['name' => $producentname]);
     }
 
     private function addProducents($array,ManagerRegistry $doctrine){

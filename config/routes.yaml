@@ -18,6 +18,17 @@ Setcollector:
       _format:  html|rss
       year:     \d+
 
+SeriesList:
+    path:   /showcollector/series/{{collector}}/
+    controller: App\Controller\SeriesListController::listView
+    defaults:
+      _format: html
+    requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+
+
 MoviesList:
     path:   /showcollector/movies/{{collector}}/
     controller: App\Controller\MoviesListController::listView

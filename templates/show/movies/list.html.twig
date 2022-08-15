@@ -17,7 +17,7 @@
         <tr>
             <th scope="row">{{el.id}}</th>
             <td><a href={{path('MoviesDeteil',{id:el.id,collector:Collector})}}>{{el.name}}</td>
-            <td>Series</td>
+            <td>{{el.getSerie().getDetelName()}}</td>
             <td>Stars</td>
         </tr>
         {% endfor %}
