@@ -55,6 +55,7 @@ class CollectorScanController extends AbstractController
             $entity->getNationality($elemnt->nationality);
             $entity->setWeight($elemnt->weight);
             $entity->setHeight($elemnt->height);
+            $entity->setProducent($this->setProducent($elemnt->producent,$em));
             $em->persist($entity);
             $em->flush();
         }
@@ -78,7 +79,7 @@ class CollectorScanController extends AbstractController
             $entity->setPoster($this->getUrl($elemnt->poster));
             $entity->setCover($this->getUrl($elemnt->cover));
             $entity->setSerie($this->setSeries($elemnt->series,$em));
-            //$entity->setProducent($this->setProducent($elemnt->producent,$em));
+           // $entity->setProducent($this->setProducent($elemnt->producent,$em));
             $data= \DateTime::createFromFormat('Y-m-d', $elemnt->date_relesed);
             if ($data){
                 $entity->setDateRelesed($data);

@@ -43,6 +43,9 @@ class Series
     #[ORM\OneToMany(mappedBy: 'Serie', targetEntity: Movies::class)]
     private Collection $movies;
 
+    #[ORM\ManyToOne(inversedBy: 'series')]
+    private ?Producent $Producent = null;
+
     public function __construct()
     {
         $this->movies = new ArrayCollection();
@@ -184,6 +187,18 @@ class Series
                 $movie->setSerie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProducent(): ?Producent
+    {
+        return $this->Producent;
+    }
+
+    public function setProducent(?Producent $Producent): self
+    {
+        $this->Producent = $Producent;
 
         return $this;
     }

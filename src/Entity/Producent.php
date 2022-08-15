@@ -37,9 +37,13 @@ class Producent
     #[ORM\OneToMany(mappedBy: 'Producent', targetEntity: Movies::class)]
     private Collection $movies;
 
+    #[ORM\OneToMany(mappedBy: 'Producent', targetEntity: Series::class)]
+    private Collection $series;
+
     public function __construct()
     {
         $this->movies = new ArrayCollection();
+        $this->series = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -151,6 +155,36 @@ class Producent
             // set the owning side to null (unless already changed)
             if ($movie->getProducent() === $this) {
                 $movie->setProducent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Series>
+     */
+    public function getSeries(): Collection
+    {
+        return $this->series;
+    }
+
+    public function addSeries(Series $series): self
+    {
+        if (!$this->series->contains($series)) {
+            $this->series->add($series);
+            $series->setProducent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeries(Series $series): self
+    {
+        if ($this->series->removeElement($series)) {
+            // set the owning side to null (unless already changed)
+            if ($series->getProducent() === $this) {
+                $series->setProducent(null);
             }
         }
 
