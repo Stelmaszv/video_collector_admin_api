@@ -54,7 +54,7 @@ class Movies
 
     public function __construct()
     {
-        $this->Serie = new ArrayCollection();
+        
     }
 
     public function getId(): ?int

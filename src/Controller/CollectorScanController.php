@@ -22,10 +22,10 @@ class CollectorScanController extends AbstractController
         $repository = $doctrine->getManager()->getRepository(UserCollector::class);
         if ($this->canEdit($repository,$controllerid)){
             $json = $this->getDist($this->collector);
-            $this->addProducents($json->producents,$doctrine);
+            //$this->addProducents($json->producents,$doctrine);
             $this->addSeries($json->series,$doctrine);
             $this->addMovies($json->movies,$doctrine);
-            $this->addStars($json->stars,$doctrine);
+            //$this->addStars($json->stars,$doctrine);
             
             return $this->redirectToRoute('MoviesList',[
                 'collector'=> $this->collector
@@ -77,6 +77,7 @@ class CollectorScanController extends AbstractController
             $entity->setCountry($elemnt->country);
             $entity->setPoster($this->getUrl($elemnt->poster));
             $entity->setCover($this->getUrl($elemnt->cover));
+            $entity->setSerie($this->setSeries($elemnt->series,$em));
             $data= \DateTime::createFromFormat('Y-m-d', $elemnt->date_relesed);
             if ($data){
                 $entity->setDateRelesed($data);
@@ -84,6 +85,12 @@ class CollectorScanController extends AbstractController
             $em->persist($entity);
             $em->flush();
         }
+    }
+
+    private function setSeries(string $seriesmaname,$em)
+    {
+        $series = $em->getRepository(Series::class);
+        return $series->findOneBy(['name' => $seriesmaname]);
     }
 
     private function addProducents($array,ManagerRegistry $doctrine){

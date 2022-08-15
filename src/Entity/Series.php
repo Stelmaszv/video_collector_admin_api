@@ -57,6 +57,15 @@ class Series
     {
         return $this->name;
     }
+    
+    public function getDetelName(): ?string
+    {
+        if (empty($this->show_name)){
+            return $this->name;
+        }
+        return $this->show_name;
+    }
+
 
     public function setName(string $name): self
     {
