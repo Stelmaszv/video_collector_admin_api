@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SeriesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +39,14 @@ class Series
 
     #[ORM\Column]
     private ?int $number_of_sezons = null;
+
+    #[ORM\OneToMany(mappedBy: 'Serie', targetEntity: Movies::class)]
+    private Collection $movies;
+
+    public function __construct()
+    {
+        $this->movies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -138,4 +148,35 @@ class Series
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Movies>
+     */
+    public function getMovies(): Collection
+    {
+        return $this->movies;
+    }
+
+    public function addMovie(Movies $movie): self
+    {
+        if (!$this->movies->contains($movie)) {
+            $this->movies->add($movie);
+            $movie->setSerie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMovie(Movies $movie): self
+    {
+        if ($this->movies->removeElement($movie)) {
+            // set the owning side to null (unless already changed)
+            if ($movie->getSerie() === $this) {
+                $movie->setSerie(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

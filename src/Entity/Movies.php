@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MoviesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -44,8 +46,16 @@ class Movies
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $poster = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $back_cover = null;
+
+    #[ORM\ManyToOne(inversedBy: 'movies')]
+    private ?Series $Serie = null;
+
+    public function __construct()
+    {
+        $this->Serie = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -183,6 +193,18 @@ class Movies
     public function setBackCover(string $back_cover): self
     {
         $this->back_cover = $back_cover;
+
+        return $this;
+    }
+
+    public function getSerie(): ?Series
+    {
+        return $this->Serie;
+    }
+
+    public function setSerie(?Series $Serie): self
+    {
+        $this->Serie = $Serie;
 
         return $this;
     }

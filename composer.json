@@ -12,6 +12,7 @@
         "doctrine/orm": "^2.13",
         "knplabs/knp-paginator-bundle": "^5.8",
         "league/flysystem-bundle": "^2.3",
+        "symfony/apache-pack": "^1.0",
         "symfony/asset": "6.1.*",
         "symfony/console": "6.1.*",
         "symfony/dotenv": "6.1.*",

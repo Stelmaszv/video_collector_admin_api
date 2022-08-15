@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220810144626 extends AbstractMigration
+final class Version20220815110817 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,12 +20,16 @@ final class Version20220810144626 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE producent (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, dir VARCHAR(255) NOT NULL, show_name VARCHAR(255) DEFAULT NULL, country VARCHAR(255) DEFAULT NULL, description LONGTEXT DEFAULT NULL, avatar VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE movies ADD serie_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE movies ADD CONSTRAINT FK_C61EED30D94388BD FOREIGN KEY (serie_id) REFERENCES series (id)');
+        $this->addSql('CREATE INDEX IDX_C61EED30D94388BD ON movies (serie_id)');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP TABLE producent');
+        $this->addSql('ALTER TABLE movies DROP FOREIGN KEY FK_C61EED30D94388BD');
+        $this->addSql('DROP INDEX IDX_C61EED30D94388BD ON movies');
+        $this->addSql('ALTER TABLE movies DROP serie_id');
     }
 }
