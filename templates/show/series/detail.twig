@@ -76,5 +76,23 @@
         <h2>Top Stars</h2>
         <h2>Photo/Banners</h2>
         <h2>Movies</h2>
+        <ul>
+            <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for el in Movies %}
+                <tr>
+                    <th scope="row">{{el.id}}</th>
+                    <td><a href={{path('MoviesDeteil',{id:el.id,collector:Collector})}}>{{el.name}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        <ul>
     </div>
 {% endblock %}

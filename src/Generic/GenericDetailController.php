@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Generic\Generic;
 use App\Generic\GenericInterFace;
+use Knp\Component\Pager\PaginatorInterface;
 
 
 class GenericDetailController extends AbstractController implements GenericInterFace
@@ -14,9 +15,10 @@ class GenericDetailController extends AbstractController implements GenericInter
     use Generic;
     private int $id;
 
-    public function detailView(ManagerRegistry $doctrine,Request $request,int $id): Response
+    public function detailView(ManagerRegistry $doctrine,Request $request,int $id,PaginatorInterface $paginator): Response
     {
         $this->id=$id;
+        $this->paginator= $paginator;
         return $this->baseView($doctrine,$request);
     }
 
