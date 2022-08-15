@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProducentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,6 +34,14 @@ class Producent
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatar = null;
 
+    #[ORM\OneToMany(mappedBy: 'Producent', targetEntity: Movies::class)]
+    private Collection $movies;
+
+    public function __construct()
+    {
+        $this->movies = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -47,6 +57,14 @@ class Producent
         $this->name = $name;
 
         return $this;
+    }
+
+    public function getDetelName(): ?string
+    {
+        if (empty($this->show_name)){
+            return $this->name;
+        }
+        return $this->show_name;
     }
 
     public function getDir(): ?string
@@ -105,6 +123,36 @@ class Producent
     public function setAvatar(?string $avatar): self
     {
         $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Movies>
+     */
+    public function getMovies(): Collection
+    {
+        return $this->movies;
+    }
+
+    public function addMovie(Movies $movie): self
+    {
+        if (!$this->movies->contains($movie)) {
+            $this->movies->add($movie);
+            $movie->setProducent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMovie(Movies $movie): self
+    {
+        if ($this->movies->removeElement($movie)) {
+            // set the owning side to null (unless already changed)
+            if ($movie->getProducent() === $this) {
+                $movie->setProducent(null);
+            }
+        }
 
         return $this;
     }

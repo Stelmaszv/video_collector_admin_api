@@ -52,6 +52,9 @@ class Movies
     #[ORM\ManyToOne(inversedBy: 'movies')]
     private ?Series $Serie = null;
 
+    #[ORM\ManyToOne(inversedBy: 'movies')]
+    private ?Producent $Producent = null;
+
     public function __construct()
     {
         
@@ -205,6 +208,18 @@ class Movies
     public function setSerie(?Series $Serie): self
     {
         $this->Serie = $Serie;
+
+        return $this;
+    }
+
+    public function getProducent(): ?Producent
+    {
+        return $this->Producent;
+    }
+
+    public function setProducent(?Producent $Producent): self
+    {
+        $this->Producent = $Producent;
 
         return $this;
     }

@@ -22,7 +22,7 @@ class CollectorScanController extends AbstractController
         $repository = $doctrine->getManager()->getRepository(UserCollector::class);
         if ($this->canEdit($repository,$controllerid)){
             $json = $this->getDist($this->collector);
-            //$this->addProducents($json->producents,$doctrine);
+            $this->addProducents($json->producents,$doctrine);
             $this->addSeries($json->series,$doctrine);
             $this->addMovies($json->movies,$doctrine);
             //$this->addStars($json->stars,$doctrine);
