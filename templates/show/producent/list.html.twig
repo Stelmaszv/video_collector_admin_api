@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %} Movies {% endblock %}
+{% block title %} Producents {% endblock %}
 {% block body %}
 {{ include('@navbars/collectornavbar.twig') }}
 <ul>
@@ -8,8 +8,6 @@
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Name</th>
-            <th scope="col">Series</th>
-            <th scope="col">Stars</th>
         </tr>
     </thead>
     <tbody>
@@ -17,8 +15,6 @@
         <tr>
             <th scope="row">{{el.id}}</th>
             <td><a href={{path('MoviesDeteil',{id:el.id,collector:Collector})}}>{{el.name}}</td>
-            <td><a href={{path('SeriesDetail',{id:el.getSerie().getId(),collector:Collector})}}>{{el.getSerie().getDetelName()}}</a></td>
-            <td>Stars</td>
         </tr>
         {% endfor %}
     </tbody>

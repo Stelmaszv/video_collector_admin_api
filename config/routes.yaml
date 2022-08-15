@@ -28,6 +28,16 @@ SeriesList:
       _format:  html|rss
       year:     \d+
 
+ProducentsList:
+    path:   /showcollector/producents/{{collector}}/
+    controller: App\Controller\ProducentsListController::listView
+    defaults:
+      _format: html
+    requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+
 
 MoviesList:
     path:   /showcollector/movies/{{collector}}/
