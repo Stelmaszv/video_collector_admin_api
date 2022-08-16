@@ -58,6 +58,25 @@
         </div>
         <h2>Top Stars</h2>
         <h2>Photo/Banners</h2>
+        <h2>Series</h2>
+        <ul>
+            <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for Serie in Series %}
+                <tr>
+                    <th scope="row">{{Serie.id}}</th>
+                    <td><a href={{path('SeriesDetail',{id:Serie.id,collector:Collector})}}>{{Serie.name}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </ul>
         <h2>Movies</h2>
         <ul>
             <table class="table">
@@ -76,6 +95,6 @@
                 {% endfor %}
             </tbody>
             </table>
-        <ul>
+        </ul>
     </div>
 {% endblock %}

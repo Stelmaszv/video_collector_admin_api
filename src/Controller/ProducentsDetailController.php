@@ -23,13 +23,22 @@ class ProducentsDetailController  extends GenericDetailController implements Gen
     {
         return  [
             'Collector' => $this->returnUrlArguments('collector'),
-            'Movies'    => $this->returnMovies($this->paginator)
+            'Movies'    => $this->returnMovies($this->paginator),
+            'Series'    => $this->returnSeries($this->paginator)
         ];
     }
 
     private function returnMovies($paginator){
         return $paginator->paginate(
             $this->getObjects()->getMovies(),
+            $this->request->query->getInt('page', 1),
+            $this->per_page
+        );
+    }
+
+    private function returnSeries($paginator){
+        return $paginator->paginate(
+            $this->getObjects()->getSeries(),
             $this->request->query->getInt('page', 1),
             $this->per_page
         );

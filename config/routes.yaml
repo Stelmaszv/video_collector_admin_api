@@ -8,8 +8,6 @@ Download:
       _format:  html|rss
       year:     \d+
 
-  
-
 Setcollector:
     path:   /setcollector
     controller: App\Controller\SetCollectorController::listView
