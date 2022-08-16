@@ -38,6 +38,26 @@ SeriessPhotos:
       _format:  html|rss
       year:     \d+
   
+SeriesTopStars:
+    path:   /showcollector/topstars/series/{{collector}}/{{id}}
+    controller: App\Controller\SeriesTopStarsController::detailView
+    defaults:
+      _format: html
+    requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+  
+ProducnetTopStars:
+    path:   /showcollector/topstars/producent/{{collector}}/{{id}}
+    controller: App\Controller\ProducnetTopStarsController::detailView
+    defaults:
+      _format: html
+    requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+
 SeriessBanner:
     path:   /showcollector/seriesbanners/{{collector}}/{{id}}
     controller: App\Controller\SeriessBannerController::detailView
