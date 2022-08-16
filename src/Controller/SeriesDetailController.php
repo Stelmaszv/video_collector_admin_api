@@ -24,8 +24,48 @@ class SeriesDetailController  extends GenericDetailController implements Generic
         return  [
             'Collector' => $this->returnUrlArguments('collector'),
             'Movies'    => $this->returnMovies($this->paginator),
-            'TopStars'  => array_slice($this->topStars(),0,10)
+            'TopStars'  => array_slice($this->topStars(),0,10),
+            'photos'    => array_slice($this->returnPhotos(),0,10),
+            'banners'   => array_slice($this->returnBanners(),0,3)
         ];
+    }
+
+    private function returnPhotos(){
+        $photos=[];
+        $dir = $this->getObjects()->getDir();
+        $dir = '../public/collectors/'.$dir.'/photos';
+        if (is_dir($dir)){
+            if ($dh = opendir($dir)){
+              while (($file = readdir($dh)) !== false){
+                if (is_dir($dir)){
+                    if ($file != '.'&& $file != '..'){
+                        array_push($photos,'/collectors//'.$this->getObjects()->getDir().'/photos//'.$file);
+                    }
+                }
+              }
+              closedir($dh);
+            }
+        }
+        return $photos;
+    }
+
+    private function returnBanners(){
+        $photos=[];
+        $dir = $this->getObjects()->getDir();
+        $dir = '../public/collectors/'.$dir.'/banners';
+        if (is_dir($dir)){
+            if ($dh = opendir($dir)){
+              while (($file = readdir($dh)) !== false){
+                if (is_dir($dir)){
+                    if ($file != '.'&& $file != '..'){
+                        array_push($photos,'/collectors//'.$this->getObjects()->getDir().'/banners//'.$file);
+                    }
+                }
+              }
+              closedir($dh);
+            }
+        }
+        return $photos;
     }
 
     private function returnMovies($paginator){

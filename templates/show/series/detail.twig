@@ -84,7 +84,19 @@
                 {% endfor %}
                 </div>
             </div>
-        <h2>Photo/Banners</h2>
+        <div class="row">
+        <h2>Photos<h2><br>
+            {% for Photo in photos %}
+                <img src="{{Photo}}" width="160" height="80" class="img-thumbnail" alt="{{Photo}}">
+            {% endfor %}
+        </div>
+        <div class="row">
+        <h2>Banners<h2><br>
+            {% for banner in banners %}
+                <img src="{{banner}}" width="860" height="200" class="img-thumbnail" alt="{{banner}}">
+            {% endfor %}
+        </div>
+
         <h2>Movies</h2>
         <ul>
             <table class="table">
