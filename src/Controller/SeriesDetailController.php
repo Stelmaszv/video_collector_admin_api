@@ -23,7 +23,8 @@ class SeriesDetailController  extends GenericDetailController implements Generic
     {
         return  [
             'Collector' => $this->returnUrlArguments('collector'),
-            'Movies'    => $this->returnMovies($this->paginator)
+            'Movies'    => $this->returnMovies($this->paginator),
+            'TopStars'  => array_slice($this->topStars(),0,10)
         ];
     }
 
@@ -33,6 +34,33 @@ class SeriesDetailController  extends GenericDetailController implements Generic
             $this->request->query->getInt('page', 1),
             $this->per_page
         );
+    }
+
+    private function setTopStarAvatar(string $url){
+        return $url.'/avatar.jpeg';
+    }
+
+    private function topStars(){
+        $top_stars=[];
+        $dir = $this->getObjects()->getDir();
+        $dir = '../public/collectors/'.$dir.'/stars';
+        if (is_dir($dir)){
+            if ($dh = opendir($dir)){
+              while (($file = readdir($dh)) !== false){
+                if (is_dir($dir)){
+                    if ($file != '.'&& $file != '..'){
+                        $show_dir='/collectors//'.$this->getObjects()->getDir().'/stars';
+                        $top_stars[]=array(
+                            'dirname'=>$file,
+                            'avatar' =>$this->setTopStarAvatar($show_dir.'/'.$file)
+                        );
+                    }
+                }
+              }
+              closedir($dh);
+            }
+        }
+        return $top_stars;
     }
 
 }

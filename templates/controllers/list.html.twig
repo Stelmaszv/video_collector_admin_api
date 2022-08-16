@@ -18,6 +18,14 @@
                         Scan
                     </a>
                 {% endif %}
+                    <a href="{{path('MoviesList',
+                        {
+                            collector:el['Name']
+                        }
+                    
+                    )}}">
+                        Show
+                    </a>
             {% endfor %}
         </li>
     </ul>

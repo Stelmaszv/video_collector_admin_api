@@ -1,0 +1,3 @@
+RewriteRule ^protected/.* - [F,L]
+RewriteRule ^var/.*/protected(.*) - [F,L]
+RewriteRule ^cache-buster\-[\d]+/protected(.*) - [F,L]

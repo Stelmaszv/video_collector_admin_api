@@ -51,39 +51,12 @@
                         <td>
                             {{object.getCountry()}}
                         </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            years
-                        </td>
-                        <td>
-                            {{object.getYears()}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Number of sezons
-                        </td>
-                        <td>
-                            {{object.getNumberOfSezons()}}
-                        </td>
-                    </tr>
-                    
+                    </tr>                    
                 </tbody>
             </table>
             </div>
         </div>
         <h2>Top Stars</h2>
-            <div class="container text-center">
-                <div class="row">
-                {% for TopStar in TopStars %}
-                    <div class="col">
-                        <img src="{{TopStar.avatar}}" width="160" height="80" class="img-thumbnail" alt="{{TopStar.dirname}}"><br>
-                        {{TopStar.dirname}}
-                    </div>
-                {% endfor %}
-                </div>
-            </div>
         <h2>Photo/Banners</h2>
         <h2>Movies</h2>
         <ul>

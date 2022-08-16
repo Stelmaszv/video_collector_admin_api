@@ -49,6 +49,16 @@ MoviesList:
       _format:  html|rss
       year:     \d+
 
+ProducentsDetail:
+    path:   /showcollector/{{collector}}/producents/deteil/{{id}}/
+    controller: App\Controller\ProducentsDetailController::detailView
+    defaults:
+      _format: html
+    requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+
 SeriesDetail:
     path:   /showcollector/{{collector}}/serie/deteil/{{id}}/
     controller: App\Controller\SeriesDetailController::detailView
