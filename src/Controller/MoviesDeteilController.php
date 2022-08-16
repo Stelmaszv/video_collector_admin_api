@@ -21,8 +21,29 @@ class MoviesDeteilController  extends GenericDetailController implements Generic
     protected function onSetAttribut() :array
     {
         return  [
-            'Collector' => $this->returnUrlArguments('collector')
+            'Collector' => $this->returnUrlArguments('collector'),
+            'Galery'    => $this->returnGalery()
         ];
+    }
+
+    
+    private function returnGalery(){
+        $photos=[];
+        $dir = $this->getObjects()->getDir();
+        $dir = '../public/collectors/'.$dir;
+        if (is_dir($dir)){
+            if ($dh = opendir($dir)){
+              while (($file = readdir($dh)) !== false){
+                if (is_dir($dir)){
+                    if ($file != '.'&& $file != '..'){
+                        array_push($photos,'/collectors//'.$this->getObjects()->getDir().'/'.$file);
+                    }
+                }
+              }
+              closedir($dh);
+            }
+        }
+        return $photos;
     }
 
 }

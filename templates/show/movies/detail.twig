@@ -115,7 +115,11 @@
     </table>
 </div>
 <center><h2>Galery</h2></center>
-
+<div class="container text-center">
+    {% for photo in Galery %}
+        <img src="{{photo}}" width="250" height="250">
+    {% endfor %}
+</div>
 {% endblock %}
 
 

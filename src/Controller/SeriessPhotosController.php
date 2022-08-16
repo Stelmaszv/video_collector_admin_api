@@ -32,7 +32,7 @@ class SeriessPhotosController  extends GenericDetailController implements Generi
                 if ($dh = opendir($dir)){
                   while (($file = readdir($dh)) !== false){
                     if (is_dir($dir)){
-                        if ($file != '.'&& $file != '..' && $file != 'config.JSON'){
+                        if ($file != '.'&& $file != '..' && $file != 'config.JSON' && $file != 'config.json'){
                             array_push($photos,'/collectors//'.$movie->getDir().'/'.$file);
                         }
                     }
