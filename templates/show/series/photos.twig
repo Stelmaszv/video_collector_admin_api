@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block title %} Photo Galery for series {{object.getDetelName()}} {% endblock %}
+{% block body %}
+{{ include('@navbars/collectornavbar.twig') }}
+<div class="container text-center">
+    <h2>Photo Galery for series {{object.getDetelName()}}</h2>
+    {% for photo in photos %}
+        <img src="{{photo}}" width="250" height="250">
+    {% endfor %}
+</div>
+{% endblock %}

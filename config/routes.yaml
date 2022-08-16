@@ -8,6 +8,8 @@ Download:
       _format:  html|rss
       year:     \d+
 
+  
+
 Setcollector:
     path:   /setcollector
     controller: App\Controller\SetCollectorController::listView
@@ -21,6 +23,26 @@ Setcollector:
 SeriesList:
     path:   /showcollector/series/{{collector}}/
     controller: App\Controller\SeriesListController::listView
+    defaults:
+      _format: html
+    requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+
+SeriessPhotos:
+    path:   /showcollector/seriesphoto/{{collector}}/{{id}}
+    controller: App\Controller\SeriessPhotosController::detailView
+    defaults:
+      _format: html
+    requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+  
+SeriessBanner:
+    path:   /showcollector/seriesbanners/{{collector}}/{{id}}
+    controller: App\Controller\SeriessBannerController::detailView
     defaults:
       _format: html
     requirements:

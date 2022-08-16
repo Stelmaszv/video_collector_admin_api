@@ -85,13 +85,19 @@
                 </div>
             </div>
         <div class="row">
-        <h2>Photos<h2><br>
+        <a href={{path('SeriessPhotos',{id:object.id,collector:Collector})}}>
+            <h2>Photos<h2>
+        </a>
+        <br>
             {% for Photo in photos %}
                 <img src="{{Photo}}" width="160" height="80" class="img-thumbnail" alt="{{Photo}}">
             {% endfor %}
         </div>
         <div class="row">
-        <h2>Banners<h2><br>
+        <a href={{path('SeriessBanner',{id:object.id,collector:Collector})}}>
+        <h2>Banners<h2>
+        </a>
+        <br>
             {% for banner in banners %}
                 <img src="{{banner}}" width="860" height="200" class="img-thumbnail" alt="{{banner}}">
             {% endfor %}
@@ -110,7 +116,7 @@
                 {% for el in Movies %}
                 <tr>
                     <th scope="row">{{el.id}}</th>
-                    <td><a href={{path('MoviesDeteil',{id:el.id,collector:Collector})}}>{{el.name}}</td>
+                    <td><a href={{path('MoviesDeteil',{id:el.id,collector:Collector})}}>{{el.name}}</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
