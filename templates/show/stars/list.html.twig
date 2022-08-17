@@ -14,7 +14,7 @@
         {% for el in object %}
         <tr>
             <th scope="row">{{el.id}}</th>
-            <td><a href={{path('StarDetail',{id:el.id,collector:Collector})}}>{{el.name()}}</td>
+            <td><a href={{path('StarDetail',{id:el.id,collector:Collector})}}>{{el.name()}}</a></td>
         </tr>
         {% endfor %}
     </tbody>

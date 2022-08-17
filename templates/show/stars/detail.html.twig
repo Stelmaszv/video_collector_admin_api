@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+{% block title %} {{object.name}} {% endblock %}
+{% block body %}
+{{ include('@navbars/collectornavbar.twig') }}
+    <div class="container text-center">
+        <h2>{{object.getName()}}</h2>
+        <div class="row">
+            <div class="col">
+            <div>
+                <img src="/collectors/{{object.avatar}}" width="250" height="250">
+            </div>
+            <div style="text-align: justify; padding:15px;">{{object.description}}</div>
+            </div>
+            <div class="col">
+            <table class="table table-bordered">
+                <tbody>
+                     <tr>
+                        <td>
+                            Id
+                        </td>
+                        <td>
+                            {{object.id}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Name
+                        </td>
+                        <td>
+                            {{object.name}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Show name
+                        </td>
+                        <td>
+                            {{object.getShowName()}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Dir
+                        </td>
+                        <td>
+                            {{object.dir}}
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>
+                            Nationality
+                        </td>
+                        <td>
+                            {{object.nationality}}
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>
+                            Height
+                        </td>
+                        <td>
+                            {{object.height}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Weight
+                        </td>
+                        <td>
+                            {{object.weight}}
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>
+                            Ethnicity
+                        </td>
+                        <td>
+                            {{object.ethnicity}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Hair Color
+                        </td>
+                        <td>
+                            {{object.getHairColor()}}
+                        </td>
+                    </tr>  
+                    <tr>
+                        <td>
+                            Date Of Birth
+                        </td>
+                        <td>
+                            {{object.getDateOfBirth().format('d m Y')}}
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>
+                            Place of birth
+                        </td>
+                        <td>
+                            {{object.getPlaceOfBirth()}}
+                        </td>
+                    </tr> 
+                </tbody>
+            </table>
+            </div>
+        </div>
+        <div class="row">
+            <a href="#"><h2>Photo</h2></a>
+            <div class="container text-center">
+            {% for photo in photos %}
+                <img src="{{photo}}" width="250" height="250">
+            {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <a href="#"><h2>Movies</h2></a>
+        </div>
+        <ul>
+            <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for el in Movies %}
+                <tr>
+                    <th scope="row">{{el.id}}</th>
+                    <td><a href={{path('MoviesDeteil',{id:el.id,collector:Collector})}}>{{el.name}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </ul>
+    </div>
+{% endblock %}
+
+
+
+
+

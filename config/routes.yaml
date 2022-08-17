@@ -88,7 +88,6 @@ ProducentsList:
       _format:  html|rss
       year:     \d+
 
-
 MoviesList:
     path:   /showcollector/movies/{{collector}}/
     controller: App\Controller\MoviesListController::listView
@@ -102,6 +101,16 @@ MoviesList:
 ProducentsDetail:
     path:   /showcollector/{{collector}}/producents/deteil/{{id}}/
     controller: App\Controller\ProducentsDetailController::detailView
+    defaults:
+      _format: html
+    requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+
+StarDetail:
+    path:   /showcollector/{{collector}}/star/deteil/{{id}}/
+    controller: App\Controller\StarDetailController::detailView
     defaults:
       _format: html
     requirements:

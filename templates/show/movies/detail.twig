@@ -13,10 +13,12 @@
     </a>
     <div class="container text-center">
         <div class="row">
-            {% for TopStar in object.Stars %}
+            {% for Star in object.Stars %}
                 <div class="col">
-                    <img src="/collectors/{{TopStar.avatar}}" width="160" height="80" class="img-thumbnail" alt="{{TopStar.name}}"><br>
-                    <b>{{TopStar.name}}</b>
+                    <a href={{path('StarDetail',{id:Star.id,collector:Collector})}}>
+                        <img src="/collectors/{{Star.avatar}}" width="160" height="80" class="img-thumbnail" alt="{{Star.name}}"><br>
+                        <b>{{Star.name}}</b>
+                    </a>
                 </div>
             {% endfor %}
         </div>
