@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
-{% block title %} Photo Galery for series {{object.getDetelName()}} {% endblock %}
+{% block title %} Photo Galery for series {{ObjectData.getDetelName()}} {% endblock %}
 {% block body %}
 {{ include('@navbars/collectornavbar.twig') }}
 <div class="container text-center">
-    <h2>Baners for {{object.getDetelName()}}</h2>
-    {% for baner in baners %}
+    <h2>Baners for {{ObjectData.getDetelName()}}</h2>
+    {% for baner in object %}
     <div>
         <img src="{{baner}}" width="800" height="200">
     </div>
     {% endfor %}
+    <center>{{ knp_pagination_render(object) }}</center>
 </div>
 {% endblock %}

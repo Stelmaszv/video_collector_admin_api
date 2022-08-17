@@ -90,7 +90,7 @@ ProducnetTopStars:
 
 SeriessBanner:
     path:   /showcollector/seriesbanners/{{collector}}/{{id}}
-    controller: App\Controller\SeriessBannerController::detailView
+    controller: App\Controller\SeriessBannerController::listView
     defaults:
       _format: html
     requirements:
