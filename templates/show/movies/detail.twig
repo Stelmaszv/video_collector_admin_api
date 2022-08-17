@@ -2,33 +2,27 @@
 {% block title %} {{object.name}} {% endblock %}
 {% block body %}
 {{ include('@navbars/collectornavbar.twig') }}
-<center><h2>{{object.name}}</h2></center>
 <div class="container text-center">
+    <h2>{{object.name}}</h2>
     <video width="1200" height="700" controls poster="/collectors/{{object.poster}}">
         <source src="/collectors/{{object.src}}" type="video/mp4">
     </video>
-</div>
-<center><h2>Stars</h2></center>
-<center>{{object.description}}</center>
-<center><h2>Covers</h2></center>
-<div class="container text-center">
-  <div class="row">
-    <div class="col">
-      <img src="/collectors/{{object.cover}}" width="300" height="500">
+    <div class="row">
+    <a href={{path('SeriesTopStars',{id:object.id,collector:Collector})}}>
+        <h2>Stars</h2>
+    </a>
+    <div class="container text-center">
+        <div class="row">
+            {% for TopStar in object.Stars %}
+                <div class="col">
+                    <img src="/collectors/{{TopStar.avatar}}" width="160" height="80" class="img-thumbnail" alt="{{TopStar.name}}"><br>
+                    <b>{{TopStar.name}}</b>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-    <div class="col">
-      Column
-    </div>
-    <div class="col">
-      Column
-    </div>
-    <div class="col">
-      Column
-    </div>
-  </div>
-</div>
-<center><h2>Deteils</h2></center>
-<div class="container text-center">
+    <h2>Deteils</h2>
+    <div style="text-align: justify; padding:15px;">{{object.description}}</div>
     <table class="table table-bordered">
     <tbody>
         <tr>
@@ -55,14 +49,26 @@
                 {{object.getShowName()}}
             </td>
         </tr>
-        <tr>
-            <td>
-                Series
-            </td>
-            <td>
-                <a href={{path('SeriesDetail',{id:object.getSerie().getId(),collector:Collector})}}>{{object.getSerie().getDetelName()}}</a>
-            </td>
-        </tr>
+        {% if object.getProducent() != NULL %}
+            <tr>
+                <td>
+                    Series
+                </td>
+                <td>
+                    <a href={{path('SeriesDetail',{id:object.getSerie().getId(),collector:Collector})}}>{{object.getSerie().getDetelName()}}</a>
+                </td>
+            </tr>
+        {% endif %}
+        {% if object.getProducent() != NULL %}
+            <tr>
+                <td>
+                    Producent
+                </td>
+                <td>
+                    <a href={{path('ProducentsDetail',{id:object.getProducent().getId(),collector:Collector})}}>{{object.getProducent().getDetelName()}}</a>
+                </td>
+            </tr>
+        {% endif %}
         <tr>
             <td>
                 Dir
@@ -87,38 +93,36 @@
                 {{object.getCountry()}}
             </td>
         </tr>
-        <tr>
-            <td>
-                Cover
-            </td>
-            <td>
-                {{object.getCover()}}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Poster
-            </td>
-            <td>
-                {{object.getPoster()}}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Back Cover
-            </td>
-            <td>
-                {{object.getBackCover()}}
-            </td>
-        </tr>
     </tbody>
     </table>
-</div>
-<center><h2>Galery</h2></center>
-<div class="container text-center">
-    {% for photo in Galery %}
-        <img src="{{photo}}" width="250" height="250">
-    {% endfor %}
+    <h2>Covers</h2>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+            Front Cover
+                <img src="/collectors/{{object.getCover()}}" width="250" height="400">
+            </div>
+            <div class="col">
+            Back Cover
+                <img src="/collectors/{{object.getBackCover()}}" width="250" height="400">
+            </div>
+            <div class="col">
+            Custum Cover
+                <img src="/collectors/{{object.getCustomCover()}}" width="250" height="400">
+            </div>
+            <div class="col">
+            Custum Cover 2
+                <img src="/collectors/{{object.getCustomCover2()}}" width="250" height="400">
+            </div>
+        </div>
+    </div>
+    <h2>Galery</h2>
+    <div class="container text-center">
+        {% for photo in Galery %}
+            <img src="{{photo}}" width="250" height="250">
+        {% endfor %}
+    </div>
+
 </div>
 {% endblock %}
 

@@ -58,6 +58,12 @@ class Movies
     #[ORM\ManyToMany(targetEntity: Stars::class, inversedBy: 'movies')]
     private Collection $Stars;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $custom_cover = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $custom_cover2 = null;
+
     public function __construct()
     {
         $this->Stars = new ArrayCollection();
@@ -247,6 +253,30 @@ class Movies
     public function removeStar(Stars $star): self
     {
         $this->Stars->removeElement($star);
+
+        return $this;
+    }
+
+    public function getCustomCover(): ?string
+    {
+        return $this->custom_cover;
+    }
+
+    public function setCustomCover(?string $custom_cover): self
+    {
+        $this->custom_cover = $custom_cover;
+
+        return $this;
+    }
+
+    public function getCustomCover2(): ?string
+    {
+        return $this->custom_cover2;
+    }
+
+    public function setCustomCover2(?string $custom_cover2): self
+    {
+        $this->custom_cover2 = $custom_cover2;
 
         return $this;
     }
