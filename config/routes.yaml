@@ -40,7 +40,7 @@ SeriesList:
 
 SeriessPhotos:
     path:   /showcollector/seriesphoto/{{collector}}/{{id}}
-    controller: App\Controller\SeriessPhotosController::detailView
+    controller: App\Controller\SeriessPhotosController::listView
     defaults:
       _format: html
     requirements:
