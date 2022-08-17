@@ -107,7 +107,7 @@
             </div>
         </div>
         <div class="row">
-            <a href="#"><h2>Photo</h2></a>
+            <a href="{{path('StarPhotos',{id:object.id,collector:Collector})}}"><h2>Photo</h2></a>
             <div class="container text-center">
             {% for photo in photos %}
                 <img src="{{photo}}" width="250" height="250">
@@ -115,7 +115,7 @@
             </div>
         </div>
         <div class="row">
-            <a href="#"><h2>Movies</h2></a>
+            <a href="{{path('StarMovies',{id:object.id,collector:Collector})}}"><h2>Movies</h2></a>
         </div>
         <ul>
             <table class="table">

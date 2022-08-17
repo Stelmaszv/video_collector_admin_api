@@ -22,17 +22,9 @@ class StarDetailController  extends GenericDetailController implements GenericSe
     {
         return  [
             'Collector' => $this->returnUrlArguments('collector'),
-            'Movies'    => $this->returnMovies($this->paginator),
+            'Movies'    => $this->getObjects()->getMovies(),
             'photos'    => array_slice($this->returnPhotos(),0,10),
         ];
-    }
-
-    private function returnMovies($paginator){
-        return $paginator->paginate(
-            $this->getObjects()->getMovies(),
-            $this->request->query->getInt('page', 1),
-            $this->per_page
-        );
     }
 
     private function returnPhotos(){
