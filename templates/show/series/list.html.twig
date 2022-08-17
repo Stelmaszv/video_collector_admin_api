@@ -16,7 +16,13 @@
         <tr>
             <th scope="row">{{el.id}}</th>
             <td><a href={{path('SeriesDetail',{id:el.id,collector:Collector})}}>{{el.getDetelName()}}</td>
-            <td>Stars</td>
+            <td>
+            {% if el.getProducent() != NULL %}
+                <a href={{path('ProducentsDetail',{id:el.getProducent().getId(),collector:Collector})}}>{{el.getProducent().getDetelName()}}</a>
+            {% else %}
+            No Producent !
+            {% endif %}
+            </td>
         </tr>
         {% endfor %}
     </tbody>
