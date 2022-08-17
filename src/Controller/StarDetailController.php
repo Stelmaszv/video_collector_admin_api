@@ -17,6 +17,7 @@ class StarDetailController  extends GenericDetailController implements GenericSe
         $this->setEntity(Stars::class);
         $this->setTwig('show/stars/detail.html.twig');
     }
+    
 
     protected function onSetAttribut() :array
     {

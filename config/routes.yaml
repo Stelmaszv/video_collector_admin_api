@@ -70,7 +70,17 @@ StarMovies:
   
 SeriesTopStars:
     path:   /showcollector/topstars/series/{{collector}}/{{id}}
-    controller: App\Controller\SeriesTopStarsController::detailView
+    controller: App\Controller\SeriesTopStarsController::listView
+    defaults:
+      _format: html
+    requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+
+StarInSeriesMovieList:
+    path:   /showcollector/topstars/star/in/series/movielist/{{collector}}/{{star}}/{{seriesid}}
+    controller: App\Controller\StarInSeriesMovieListController::listView
     defaults:
       _format: html
     requirements:

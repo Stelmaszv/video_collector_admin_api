@@ -80,8 +80,10 @@
                 <div class="row">
                 {% for TopStar in TopStars %}
                     <div class="col">
+                    <a href="{{path('StarInSeriesMovieList',{star:TopStar.dirname,collector:Collector,seriesid:object.id})}}">
                         <img src="{{TopStar.avatar|photo('star')}}" width="160" height="80" class="img-thumbnail" alt="{{TopStar.dirname}}"><br>
                         {{TopStar.dirname}}
+                    </a>
                     </div>
                 {% endfor %}
                 </div>

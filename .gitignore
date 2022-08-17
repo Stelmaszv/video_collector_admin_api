@@ -5,6 +5,7 @@
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/collectors/
+/public/assts/
 /var/
 /vendor/
 /collectors/
