@@ -39,7 +39,7 @@ class SeriesDetailController  extends GenericDetailController implements Generic
               while (($file = readdir($dh)) !== false){
                 if (is_dir($dir)){
                     if ($file != '.'&& $file != '..'){
-                        array_push($photos,'/collectors//'.$this->getObjects()->getDir().'/photos//'.$file);
+                        array_push($photos,'/'.$this->getObjects()->getDir().'/photos//'.$file);
                     }
                 }
               }
@@ -58,7 +58,7 @@ class SeriesDetailController  extends GenericDetailController implements Generic
               while (($file = readdir($dh)) !== false){
                 if (is_dir($dir)){
                     if ($file != '.'&& $file != '..'){
-                        array_push($photos,'/collectors//'.$this->getObjects()->getDir().'/banners//'.$file);
+                        array_push($photos,$this->getObjects()->getDir().'/banners//'.$file);
                     }
                 }
               }
@@ -76,8 +76,25 @@ class SeriesDetailController  extends GenericDetailController implements Generic
         );
     }
 
-    private function setTopStarAvatar(string $url){
-        return $url.'/avatar.jpeg';
+    private function setTopStarAvatar(string $url,string $dir,string $star_name){
+        $avatar='';
+        $show_dir='/'.$dir.'/stars/'.$star_name;
+        if (is_dir($url)){
+            if ($dh = opendir($url)){
+                while (($file = readdir($dh)) !== false){
+                    if ($file != '.'&& $file != '..'){
+                        if ($file == 'avatar.png'){
+                            echo $file;
+                            $avatar=$file;
+                        }
+                    }
+                }
+            }
+        }
+        if (empty($avatar)){
+            return '';
+        }        
+        return $show_dir.'/avatar.png';
     }
 
     private function topStars(){
@@ -89,10 +106,10 @@ class SeriesDetailController  extends GenericDetailController implements Generic
               while (($file = readdir($dh)) !== false){
                 if (is_dir($dir)){
                     if ($file != '.'&& $file != '..'){
-                        $show_dir='/collectors//'.$this->getObjects()->getDir().'/stars';
+                        $show_dir='/'.$this->getObjects()->getDir().'/stars';
                         $top_stars[]=array(
                             'dirname'=>$file,
-                            'avatar' =>$this->setTopStarAvatar($show_dir.'/'.$file)
+                            'avatar' =>$this->setTopStarAvatar($dir.'/'.$file,$this->getObjects()->getDir(),$file)
                         );
                     }
                 }

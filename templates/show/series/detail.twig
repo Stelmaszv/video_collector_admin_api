@@ -6,10 +6,9 @@
         <h2>{{object.getDetelName()}}</h2>
         <div class="row">
             <div class="col">
-            <img src="/collectors/{{object.avatar}}" width="250" height="250">
+            <img src="{{object.getAvatar()|photo}}" width="350" height="350">
             </div>
             <div class="col">
-            {{object.description}}
             <table class="table table-bordered">
                 <tbody>
                      <tr>
@@ -33,7 +32,7 @@
                             Show name
                         </td>
                         <td>
-                            {{object.getShowName()}}
+                            {{object.getShowName()|empty}}
                         </td>
                     </tr>
                     <tr>
@@ -49,7 +48,7 @@
                             Country
                         </td>
                         <td>
-                            {{object.getCountry()}}
+                            {{object.getCountry()|empty}}
                         </td>
                     </tr>
                     <tr>
@@ -57,7 +56,7 @@
                             years
                         </td>
                         <td>
-                            {{object.getYears()}}
+                            {{object.getYears()|empty}}
                         </td>
                     </tr>
                     <tr>
@@ -68,11 +67,11 @@
                             {{object.getNumberOfSezons()}}
                         </td>
                     </tr>
-                    
                 </tbody>
             </table>
             </div>
         </div>
+        {{object.description|empty}}
         <div class="row">
         <a href={{path('SeriesTopStars',{id:object.id,collector:Collector})}}>
             <h2>Top Stars</h2>
@@ -81,7 +80,7 @@
                 <div class="row">
                 {% for TopStar in TopStars %}
                     <div class="col">
-                        <img src="{{TopStar.avatar}}" width="160" height="80" class="img-thumbnail" alt="{{TopStar.dirname}}"><br>
+                        <img src="{{TopStar.avatar|photo('star')}}" width="160" height="80" class="img-thumbnail" alt="{{TopStar.dirname}}"><br>
                         {{TopStar.dirname}}
                     </div>
                 {% endfor %}
@@ -94,7 +93,7 @@
         </a>
         <br>
             {% for Photo in photos %}
-                <img src="{{Photo}}" width="160" height="80" class="img-thumbnail" alt="{{Photo}}">
+                <img src="{{Photo|photo}}" width="160" height="80" class="img-thumbnail" alt="{{Photo}}">
             {% endfor %}
         </div>
         <div class="row">
@@ -103,11 +102,14 @@
         </a>
         <br>
             {% for banner in banners %}
-                <img src="{{banner}}" width="860" height="200" class="img-thumbnail" alt="{{banner}}">
+                <img src="{{banner|photo}}" width="860" height="200" class="img-thumbnail" alt="{{banner}}">
             {% endfor %}
         </div>
-
-        <h2>Movies</h2>
+        <div class="row">
+            <a href="#">
+                <h2>Movies</h2>
+            </a>
+        </div>
         <ul>
             <table class="table">
             <thead>
