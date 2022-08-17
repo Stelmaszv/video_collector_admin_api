@@ -25,7 +25,7 @@ class CollectorScanController extends AbstractController
             $this->addProducents($json->producents,$doctrine);
             $this->addSeries($json->series,$doctrine);
             $this->addMovies($json->movies,$doctrine);
-            //$this->addStars($json->stars,$doctrine);
+            $this->addStars($json->stars,$doctrine);
             
             return $this->redirectToRoute('MoviesList',[
                 'collector'=> $this->collector
@@ -55,7 +55,6 @@ class CollectorScanController extends AbstractController
             $entity->getNationality($elemnt->nationality);
             $entity->setWeight($elemnt->weight);
             $entity->setHeight($elemnt->height);
-            $entity->setProducent($this->setProducent($elemnt->producent,$em));
             $em->persist($entity);
             $em->flush();
         }

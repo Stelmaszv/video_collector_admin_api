@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StarsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -49,6 +51,14 @@ class Stars
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $place_of_birth = null;
+
+    #[ORM\ManyToMany(targetEntity: Movies::class, mappedBy: 'Stars')]
+    private Collection $movies;
+
+    public function __construct()
+    {
+        $this->movies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -195,6 +205,33 @@ class Stars
     public function setPlaceOfBirth(?string $place_of_birth): self
     {
         $this->place_of_birth = $place_of_birth;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Movies>
+     */
+    public function getMovies(): Collection
+    {
+        return $this->movies;
+    }
+
+    public function addMovie(Movies $movie): self
+    {
+        if (!$this->movies->contains($movie)) {
+            $this->movies->add($movie);
+            $movie->addStar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMovie(Movies $movie): self
+    {
+        if ($this->movies->removeElement($movie)) {
+            $movie->removeStar($this);
+        }
 
         return $this;
     }

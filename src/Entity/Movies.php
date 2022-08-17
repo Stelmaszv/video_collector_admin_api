@@ -55,9 +55,12 @@ class Movies
     #[ORM\ManyToOne(inversedBy: 'movies')]
     private ?Producent $Producent = null;
 
+    #[ORM\ManyToMany(targetEntity: Stars::class, inversedBy: 'movies')]
+    private Collection $Stars;
+
     public function __construct()
     {
-        
+        $this->Stars = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -220,6 +223,30 @@ class Movies
     public function setProducent(?Producent $Producent): self
     {
         $this->Producent = $Producent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stars>
+     */
+    public function getStars(): Collection
+    {
+        return $this->Stars;
+    }
+
+    public function addStar(Stars $star): self
+    {
+        if (!$this->Stars->contains($star)) {
+            $this->Stars->add($star);
+        }
+
+        return $this;
+    }
+
+    public function removeStar(Stars $star): self
+    {
+        $this->Stars->removeElement($star);
 
         return $this;
     }
