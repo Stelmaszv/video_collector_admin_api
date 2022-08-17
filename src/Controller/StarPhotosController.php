@@ -4,14 +4,17 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use App\Generic\GenericDetailController;
+use App\Generic\GenericListController;
 use App\Generic\GenericSetDataInterFace;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use App\Entity\Stars;
 
-class StarPhotosController extends GenericDetailController implements GenericSetDataInterFace
+class StarPhotosController extends GenericListController implements GenericSetDataInterFace
 {
-    private $per_page=20;
+    protected bool $paginate = TRUE;
+    protected int $per_page = 20;
+    private Stars $stars;
     public function setData(): void
     {
         $this->setEntity(Stars::class);
@@ -21,14 +24,20 @@ class StarPhotosController extends GenericDetailController implements GenericSet
     protected function onSetAttribut() :array
     {
         return  [
-            'Collector' => $this->returnUrlArguments('collector'),
-            'photos'    => array_slice($this->genereteGalery(),0,100)
+            'ObjectData' => $this->stars,
+            'Collector' => $this->returnUrlArguments('collector')
         ];
+    }
+
+    public function onQuerySet(ServiceEntityRepository $entityManager)
+    {
+        $this->stars = $entityManager->find($this->returnUrlArguments('id'));
+        return $this->genereteGalery();
     }
 
     protected function genereteGalery(){
         $photos = [];
-        $movies = $this->getObjects()->getMovies();
+        $movies = $this->stars->getMovies();
         foreach($movies as $movie){
             $dir = '../public/collectors/'.$movie->getDir();
             if (is_dir($dir)){

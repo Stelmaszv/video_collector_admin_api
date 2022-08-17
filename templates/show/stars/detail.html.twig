@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col">
             <div>
-                <img src="/collectors/{{object.avatar}}" width="250" height="250">
+                <img src="{{object.avatar|photo('star')}}" width="250" height="250">
             </div>
             <div style="text-align: justify; padding:15px;">{{object.description}}</div>
             </div>
@@ -35,7 +35,7 @@
                             Show name
                         </td>
                         <td>
-                            {{object.getShowName()}}
+                            {{object.getShowName()|empty}}
                         </td>
                     </tr>
                     <tr>
@@ -51,7 +51,7 @@
                             Nationality
                         </td>
                         <td>
-                            {{object.nationality}}
+                            {{object.nationality|empty}}
                         </td>
                     </tr> 
                     <tr>
@@ -59,7 +59,7 @@
                             Height
                         </td>
                         <td>
-                            {{object.height}}
+                            {{object.height|empty}}
                         </td>
                     </tr>
                     <tr>
@@ -67,7 +67,7 @@
                             Weight
                         </td>
                         <td>
-                            {{object.weight}}
+                            {{object.weight|empty}}
                         </td>
                     </tr> 
                     <tr>
@@ -75,7 +75,7 @@
                             Ethnicity
                         </td>
                         <td>
-                            {{object.ethnicity}}
+                            {{object.ethnicity|empty}}
                         </td>
                     </tr>
                     <tr>
@@ -83,7 +83,7 @@
                             Hair Color
                         </td>
                         <td>
-                            {{object.getHairColor()}}
+                            {{object.getHairColor()|empty}}
                         </td>
                     </tr> 
                     {% if object.getDateOfBirth() != NULL %} 
@@ -101,7 +101,7 @@
                             Place of birth
                         </td>
                         <td>
-                            {{object.getPlaceOfBirth()}}
+                            {{object.getPlaceOfBirth()|empty}}
                         </td>
                     </tr> 
                 </tbody>
@@ -114,29 +114,34 @@
             {% for photo in photos %}
                 <img src="{{photo}}" width="250" height="250">
             {% endfor %}
+            {%if photos|length == 0 %}
+                Galery dir is Empty !
+            {% endif %}
             </div>
         </div>
         <div class="row">
             <a href="{{path('StarMovies',{id:object.id,collector:Collector})}}"><h2>Movies</h2></a>
         </div>
-        <ul>
+        {%if  Movies|length > 0 %}
             <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for el in Movies %}
-                <tr>
-                    <th scope="row">{{el.id}}</th>
-                    <td><a href={{path('MoviesDeteil',{id:el.id,collector:Collector})}}>{{el.name}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for el in Movies %}
+                    <tr>
+                        <th scope="row">{{el.id}}</th>
+                        <td><a href={{path('MoviesDeteil',{id:el.id,collector:Collector})}}>{{el.name}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
-        </ul>
+        {% else %}
+            No Movies !
+        {% endif %}
     </div>
 {% endblock %}
 

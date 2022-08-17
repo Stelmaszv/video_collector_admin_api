@@ -50,7 +50,7 @@ SeriessPhotos:
 
 StarPhotos:
     path:   /showcollector/starphotos/{{collector}}/{{id}}
-    controller: App\Controller\StarPhotosController::detailView
+    controller: App\Controller\StarPhotosController::listView
     defaults:
       _format: html
     requirements:
