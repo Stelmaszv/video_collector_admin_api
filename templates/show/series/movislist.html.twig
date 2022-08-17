@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block title %} {{ObjectData.name}} - Movies {% endblock %}
+{% block body %}
+{{ include('@navbars/collectornavbar.twig') }}
+<div class="container text-center">
+    <h2>
+        Movies in Series
+        <a href={{path('StarDetail',{id:ObjectData.id,collector:Collector})}}>{{ObjectData.getDetelName()}}</a>
+    </h2>
+    <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Series</th>
+            <th scope="col">Stars</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for el in object %}
+        <tr>
+            <th scope="row">{{el.id}}</th>
+            <td><a href={{path('MoviesDeteil',{id:el.id,collector:Collector})}}>{{el.name}}</td>
+            <td><a href={{path('SeriesDetail',{id:el.getSerie().getId(),collector:Collector})}}>{{el.getSerie().getDetelName()}}</a></td>
+            <td>Stars</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    <center>{{ knp_pagination_render(object) }}</center>
+</div>
+{% endblock %}

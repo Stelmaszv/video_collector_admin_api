@@ -98,6 +98,16 @@ SeriessBanner:
       _format:  html|rss
       year:     \d+
 
+SeriesMovies:
+    path:   /showcollector/seriesmovies/{{collector}}/{{id}}
+    controller: App\Controller\SeriesMoviesController::listView
+    defaults:
+      _format: html
+    requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+
 ProducentsList:
     path:   /showcollector/producents/{{collector}}/
     controller: App\Controller\ProducentsListController::listView

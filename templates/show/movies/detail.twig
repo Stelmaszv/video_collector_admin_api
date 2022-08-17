@@ -4,7 +4,7 @@
 {{ include('@navbars/collectornavbar.twig') }}
 <div class="container text-center">
     <h2>{{object.name}}</h2>
-    <video width="1200" height="700" controls poster="{{object.getCover()|photo('poster')}}">
+    <video width="1200" height="700" controls poster="{{object.getPoster()|photo('poster')}}">
         <source src="/collectors/{{object.src}}" type="video/mp4">
     </video>
     <div class="row">
@@ -26,8 +26,6 @@
     <h2>Deteils</h2>
     <div style="text-align: justify; padding:15px;">{{object.description}}</div>
     <table class="table table-bordered">
-    
-
     <tbody>
         <tr>
             <td>
