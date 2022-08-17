@@ -8,6 +8,7 @@
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Name</th>
+            <th scope="col">Movies Count</th>
         </tr>
     </thead>
     <tbody>
@@ -15,6 +16,7 @@
         <tr>
             <th scope="row">{{el.id}}</th>
             <td><a href={{path('StarDetail',{id:el.id,collector:Collector})}}>{{el.name()}}</a></td>
+            <td>{{el.getMovies()|length}}</td>
         </tr>
         {% endfor %}
     </tbody>

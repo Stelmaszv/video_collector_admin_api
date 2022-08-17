@@ -35,7 +35,7 @@ class MoviesDeteilController  extends GenericDetailController implements Generic
             if ($dh = opendir($dir)){
               while (($file = readdir($dh)) !== false){
                 if (is_dir($dir)){
-                    if ($file != '.'&& $file != '..' && $file != 'config.JSON'){
+                    if ($file != '.'&& $file != '..' && $file != 'config.JSON' && $file != 'config.json'){
                         array_push($photos,'/collectors//'.$this->getObjects()->getDir().'/'.$file);
                     }
                 }

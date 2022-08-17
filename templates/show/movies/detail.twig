@@ -4,7 +4,7 @@
 {{ include('@navbars/collectornavbar.twig') }}
 <div class="container text-center">
     <h2>{{object.name}}</h2>
-    <video width="1200" height="700" controls poster="/collectors/{{object.poster}}">
+    <video width="1200" height="700" controls poster="{{object.getCover()|photo('poster')}}">
         <source src="/collectors/{{object.src}}" type="video/mp4">
     </video>
     <div class="row">
@@ -16,7 +16,7 @@
             {% for Star in object.Stars %}
                 <div class="col">
                     <a href={{path('StarDetail',{id:Star.id,collector:Collector})}}>
-                        <img src="/collectors/{{Star.avatar}}" width="200" height="170" alt="{{Star.name}}"><br>
+                        <img src="{{ Star.avatar|photo('star') }}" width="200" height="170" alt="{{Star.name}}"><br>
                         <b>{{Star.name}}</b>
                     </a>
                 </div>
@@ -26,6 +26,8 @@
     <h2>Deteils</h2>
     <div style="text-align: justify; padding:15px;">{{object.description}}</div>
     <table class="table table-bordered">
+    
+
     <tbody>
         <tr>
             <td>
@@ -48,7 +50,7 @@
                 Show name
             </td>
             <td>
-                {{object.getShowName()}}
+                {{object.getShowName()}} {{ object.getShowName()|empty }}
             </td>
         </tr>
         {% if object.getProducent() != NULL %}
@@ -92,7 +94,7 @@
                 Country
             </td>
             <td>
-                {{object.getCountry()}}
+                {{ object.getCountry()|empty }}
             </td>
         </tr>
     </tbody>
@@ -101,20 +103,20 @@
     <div class="container text-center">
         <div class="row">
             <div class="col">
-            Front Cover
-                <img src="/collectors/{{object.getCover()}}" width="250" height="400">
+            <i>Front Cover</i>
+                <img src="{{ object.getCover()|photo('cover') }}" width="250" height="400">
             </div>
             <div class="col">
-            Back Cover
-                <img src="/collectors/{{object.getBackCover()}}" width="250" height="400">
+            <i>Back Cover</i>
+                <img src="{{ object.getBackCover()|photo('cover') }}" width="250" height="400">
             </div>
             <div class="col">
-            Custum Cover
-                <img src="/collectors/{{object.getCustomCover()}}" width="250" height="400">
+            <i>Custum Cover</i>
+                <img src="{{ object.getCustomCover()|photo('cover') }}" width="250" height="400">
             </div>
             <div class="col">
-            Custum Cover 2
-                <img src="/collectors/{{object.getCustomCover2()}}" width="250" height="400">
+            <i>Custum Cover 2</i>
+                <img src="{{ object.getCustomCover2()|photo('cover') }}" width="250" height="400">
             </div>
         </div>
     </div>
@@ -123,6 +125,9 @@
         {% for photo in Galery %}
             <img src="{{photo}}" width="250" height="250">
         {% endfor %}
+        {%if Galery|length == 0 %}
+            Galery dir is Empty !
+        {% endif %}
     </div>
 
 </div>
