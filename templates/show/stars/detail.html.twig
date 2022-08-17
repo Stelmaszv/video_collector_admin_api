@@ -85,7 +85,8 @@
                         <td>
                             {{object.getHairColor()}}
                         </td>
-                    </tr>  
+                    </tr> 
+                    {% if object.getDateOfBirth() != NULL %} 
                     <tr>
                         <td>
                             Date Of Birth
@@ -94,6 +95,7 @@
                             {{object.getDateOfBirth().format('d m Y')}}
                         </td>
                     </tr> 
+                    {% endif %}
                     <tr>
                         <td>
                             Place of birth

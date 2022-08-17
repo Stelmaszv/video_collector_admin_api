@@ -18,7 +18,11 @@
             <th scope="row">{{el.id}}</th>
             <td><a href={{path('MoviesDeteil',{id:el.id,collector:Collector})}}>{{el.name}}</td>
             <td><a href={{path('SeriesDetail',{id:el.getSerie().getId(),collector:Collector})}}>{{el.getSerie().getDetelName()}}</a></td>
-            <td>Stars</td>
+            <td>
+            {% for star in el.getStars() %}
+                <a href={{path('StarDetail',{id:star.id,collector:Collector})}}>{{star.name()}}</a>
+            {% endfor %}
+            </td>
         </tr>
         {% endfor %}
     </tbody>

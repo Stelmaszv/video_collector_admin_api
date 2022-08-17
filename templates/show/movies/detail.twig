@@ -16,7 +16,7 @@
             {% for Star in object.Stars %}
                 <div class="col">
                     <a href={{path('StarDetail',{id:Star.id,collector:Collector})}}>
-                        <img src="/collectors/{{Star.avatar}}" width="160" height="80" class="img-thumbnail" alt="{{Star.name}}"><br>
+                        <img src="/collectors/{{Star.avatar}}" width="200" height="170" alt="{{Star.name}}"><br>
                         <b>{{Star.name}}</b>
                     </a>
                 </div>
