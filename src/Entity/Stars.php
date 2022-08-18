@@ -55,9 +55,16 @@ class Stars
     #[ORM\ManyToMany(targetEntity: Movies::class, mappedBy: 'Stars')]
     private Collection $movies;
 
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'stars')]
+    private Collection $Tags;
+
+    #[ORM\ManyToOne(inversedBy: 'stars')]
+    private ?Collectors $Collectors = null;
+
     public function __construct()
     {
         $this->movies = new ArrayCollection();
+        $this->Tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -232,6 +239,42 @@ class Stars
         if ($this->movies->removeElement($movie)) {
             $movie->removeStar($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->Tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->Tags->contains($tag)) {
+            $this->Tags->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        $this->Tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getCollectors(): ?Collectors
+    {
+        return $this->Collectors;
+    }
+
+    public function setCollectors(?Collectors $Collectors): self
+    {
+        $this->Collectors = $Collectors;
 
         return $this;
     }

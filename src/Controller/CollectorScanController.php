@@ -10,18 +10,22 @@ use App\Entity\Series;
 use App\Entity\Producent;
 use App\Entity\Movies;
 use App\Entity\Stars;
+use App\Entity\Tag;
+use App\Entity\Collectors;
 
 class CollectorScanController extends AbstractController
 {
     private string $collector='';
 
-    #[Route('/collectorscan/{{collector}}/{{controllerid}}', name: 'CollectorScan')]
-    public function index(string $collector,int $controllerid,ManagerRegistry $doctrine): Response
+    #[Route('/collectorscan/{{collector}}/{{controllerid}}/{{code}}/', name: 'CollectorScan')]
+    public function index(string $collector,string $code,int $controllerid,ManagerRegistry $doctrine): Response
     {
         $this->collector=$collector;
+        $this->code=$code;
+        $this->id=$controllerid;
         $repository = $doctrine->getManager()->getRepository(UserCollector::class);
         if ($this->canEdit($repository,$controllerid)){
-            $json = $this->getDist($this->collector);
+            $json = $this->getDist();
             $this->addProducents($json->producents,$doctrine);
             $this->addSeries($json->series,$doctrine);
             $this->addSeriesToProducents($json->producents,$doctrine);
@@ -62,6 +66,7 @@ class CollectorScanController extends AbstractController
     
     private function addMovies($array,ManagerRegistry $doctrine){
         $repository = $doctrine->getManager()->getRepository(Movies::class);
+        $colector = $doctrine->getManager()->getRepository(Collectors::class);
         $stars = $doctrine->getRepository(Stars::class);
         foreach($array as $elemnt){
             $entity=$repository->faindIfExist($elemnt->name);
@@ -79,6 +84,7 @@ class CollectorScanController extends AbstractController
             $entity->setPoster($this->getUrl($elemnt->poster));
             $entity->setCover($this->getUrl($elemnt->cover));
             $entity->setSerie($this->setSeries($elemnt->series,$em));
+            $entity->setColector($colector->find($this->id));
             foreach ($elemnt->stars as $star){
                 $entity->addStar($stars->findOneBy(['name' => $star->star_name]));
             }
@@ -106,6 +112,7 @@ class CollectorScanController extends AbstractController
 
     private function addProducents($array,ManagerRegistry $doctrine){
         $repository = $doctrine->getManager()->getRepository(Producent::class);
+        $tagent = $doctrine->getRepository(Tag::class);
         foreach($array as $elemnt){
             $entity=$repository->faindIfExist($elemnt->name);
             if (!$entity){
@@ -160,9 +167,9 @@ class CollectorScanController extends AbstractController
         }
     }
 
-    private function getDist(string $controller)
+    private function getDist()
     {
-        $petsJson = file_get_contents('../public/collectors/'.$controller.'/dist.json');
+        $petsJson = file_get_contents('../public/collectors/'.$this->code.'/'.$this->collector.'/dist.json');
         return json_decode($petsJson);
     }
 
@@ -191,7 +198,7 @@ class CollectorScanController extends AbstractController
             }
             $el++;
         }
-        return $return_url;
+        return $this->code.'/'.$return_url;
     }
 
 }

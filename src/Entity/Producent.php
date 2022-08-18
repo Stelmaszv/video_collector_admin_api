@@ -40,10 +40,17 @@ class Producent
     #[ORM\OneToMany(mappedBy: 'Producent', targetEntity: Series::class)]
     private Collection $series;
 
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'producents')]
+    private Collection $Tags;
+
+    #[ORM\ManyToOne(inversedBy: 'producents')]
+    private ?Collectors $Collector = null;
+
     public function __construct()
     {
         $this->movies = new ArrayCollection();
         $this->series = new ArrayCollection();
+        $this->Tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -187,6 +194,42 @@ class Producent
                 $series->setProducent(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->Tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->Tags->contains($tag)) {
+            $this->Tags->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        $this->Tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getCollector(): ?Collectors
+    {
+        return $this->Collector;
+    }
+
+    public function setCollector(?Collectors $Collector): self
+    {
+        $this->Collector = $Collector;
 
         return $this;
     }

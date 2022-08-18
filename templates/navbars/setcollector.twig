@@ -7,7 +7,7 @@
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Colectors</a>
             <div class="dropdown-menu">
                 {% for el in object %}
-                    <a class="dropdown-item" href="#">{{ el['Name'] }}</a>
+                    <a class="dropdown-item" href="#">{{ el.getCollector().getName() }}</a>
                 {% endfor %}
             </div>
         </li>

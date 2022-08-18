@@ -64,9 +64,16 @@ class Movies
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $custom_cover2 = null;
 
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'movies')]
+    private Collection $Tags;
+
+    #[ORM\ManyToOne(inversedBy: 'movies')]
+    private ?Collectors $Colector = null;
+
     public function __construct()
     {
         $this->Stars = new ArrayCollection();
+        $this->Tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -106,7 +113,6 @@ class Movies
     public function setDir(string $dir): self
     {
         $this->dir = $dir;
-
         return $this;
     }
 
@@ -277,6 +283,42 @@ class Movies
     public function setCustomCover2(?string $custom_cover2): self
     {
         $this->custom_cover2 = $custom_cover2;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->Tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->Tags->contains($tag)) {
+            $this->Tags->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        $this->Tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getColector(): ?Collectors
+    {
+        return $this->Colector;
+    }
+
+    public function setColector(?Collectors $Colector): self
+    {
+        $this->Colector = $Colector;
 
         return $this;
     }

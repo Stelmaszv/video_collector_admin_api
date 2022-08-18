@@ -18,9 +18,4 @@ class SetCollectorController extends GenericListController implements GenericSet
         $this->setTwig('controllers/list.html.twig');
     }
 
-    public function onQuerySet(ServiceEntityRepository $entityManager)
-    {
-       return $entityManager->findUserController($this->getUser());
-    }
-
 }

@@ -46,9 +46,16 @@ class Series
     #[ORM\ManyToOne(inversedBy: 'series')]
     private ?Producent $Producent = null;
 
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'series')]
+    private Collection $Tag;
+
+    #[ORM\ManyToOne(inversedBy: 'series')]
+    private ?Collectors $Collectors = null;
+
     public function __construct()
     {
         $this->movies = new ArrayCollection();
+        $this->Tag = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -68,7 +75,6 @@ class Series
         }
         return $this->show_name;
     }
-
 
     public function setName(string $name): self
     {
@@ -199,6 +205,42 @@ class Series
     public function setProducent(?Producent $Producent): self
     {
         $this->Producent = $Producent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTag(): Collection
+    {
+        return $this->Tag;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->Tag->contains($tag)) {
+            $this->Tag->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        $this->Tag->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getCollectors(): ?Collectors
+    {
+        return $this->Collectors;
+    }
+
+    public function setCollectors(?Collectors $Collectors): self
+    {
+        $this->Collectors = $Collectors;
 
         return $this;
     }

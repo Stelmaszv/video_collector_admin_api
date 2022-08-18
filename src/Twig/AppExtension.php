@@ -15,9 +15,10 @@ class AppExtension extends AbstractExtension
         ];
     }
 
-    public function photofilter($avatar, string $type = 'normal'): string
+    public function photofilter($avatar,string $code, string $type = 'normal'): string
     {
-        if (empty($avatar) || $avatar==NULL){
+        $url_array=explode('\\',$avatar);
+        if (count($url_array)<3){
             return '/assts/'.$type.'.png';
         }
         return '/collectors/'.$avatar;
@@ -25,7 +26,7 @@ class AppExtension extends AbstractExtension
 
     public function emptyfilter($text): string
     {
-        if (empty($text) || $text==NULL){
+        if (empty($text) || $text==NULL ){
             return 'No data !';
         }
         return $text;

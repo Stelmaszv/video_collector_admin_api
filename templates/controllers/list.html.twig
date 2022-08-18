@@ -6,12 +6,13 @@
         <li>
             
             {% for el in object %}
-                {{ el['Name'] }}
-                {% if el['can_edit'] %}
+                {{ el.getCollector().getName() }}
+                {% if el.getCanEdit() %}
                     <a href="{{path('CollectorScan',
                         {
-                            collector:el['Name'],
-                            controllerid:el['id']
+                            collector:el.getCollector().getName(),
+                            controllerid:el.getCollector().getId(),
+                            code:el.getCollector().getCode()
                         }
                     
                     )}}">
@@ -20,7 +21,7 @@
                 {% endif %}
                     <a href="{{path('MoviesList',
                         {
-                            collector:el['Name']
+                            collector:el.getCollector().getName()
                         }
                     
                     )}}">
