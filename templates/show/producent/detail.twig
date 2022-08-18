@@ -64,7 +64,7 @@
                 <div class="row">
                 {% for TopStar in TopStars %}
                     <div class="col">
-                    <a href="{{path('StarInSeriesMovieList',{star:TopStar.dirname,collector:Collector,seriesid:object.id})}}">
+                    <a href="{{path('StarInProducentMovieList',{star:TopStar.dirname,collector:Collector,producentid:object.id})}}">
                         <img src="{{TopStar.avatar|photo('star')}}" width="160" height="80" class="img-thumbnail" alt="{{TopStar.dirname}}"><br>
                         {{TopStar.dirname}}
                     </a>
@@ -74,7 +74,7 @@
             </div>
         </div>
         <div class="row">
-             <a href={{path('SeriessPhotos',{id:object.id,collector:Collector})}}>
+             <a href={{path('ProducentPhotos',{id:object.id,collector:Collector})}}>
             <h2>Photos<h2>
         </a>
         <br>

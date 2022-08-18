@@ -58,6 +58,16 @@ StarPhotos:
       _format:  html|rss
       year:     \d+
 
+ProducentPhotos:
+    path:   /showcollector/producentsphotos/{{collector}}/{{id}}
+    controller: App\Controller\ProducentPhotosController::listView
+    defaults:
+      _format: html
+    requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+
 StarMovies:
     path:   /showcollector/starmovies/{{collector}}/{{id}}
     controller: App\Controller\StarMoviesController::listView
@@ -67,7 +77,7 @@ StarMovies:
       _locale:  en|fr
       _format:  html|rss
       year:     \d+
-  
+
 SeriesTopStars:
     path:   /showcollector/topstars/series/{{collector}}/{{id}}
     controller: App\Controller\SeriesTopStarsController::listView

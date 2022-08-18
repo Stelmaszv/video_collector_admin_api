@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title %} Photo Galery for series {{ObjectData.getDetelName()}} {% endblock %}
+{% block body %}
+{{ include('@navbars/collectornavbar.twig') }}
+<div class="container text-center">
+    <h2>Photo Galery for Producent 
+        <a href={{path('ProducentsDetail',{id:ObjectData.id,collector:Collector})}}>{{ObjectData.getDetelName()}}</a>
+    </h2>
+    {% for photo in object %}
+        <img src="{{photo}}" width="250" height="250">
+    {% endfor %}
+    <center>{{ knp_pagination_render(object) }}</center>
+</div>
+{% endblock %}
