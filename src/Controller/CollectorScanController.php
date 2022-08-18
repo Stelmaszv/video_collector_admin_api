@@ -24,6 +24,7 @@ class CollectorScanController extends AbstractController
             $json = $this->getDist($this->collector);
             $this->addProducents($json->producents,$doctrine);
             $this->addSeries($json->series,$doctrine);
+            $this->addSeriesToProducents($json->producents,$doctrine);
             $this->addStars($json->stars,$doctrine);
             $this->addMovies($json->movies,$doctrine);
             return $this->redirectToRoute('MoviesList',[
@@ -120,6 +121,23 @@ class CollectorScanController extends AbstractController
             $em->flush();
         }
         
+    }
+
+    private function addSeriesToProducents($array,ManagerRegistry $doctrine){
+        $repository = $doctrine->getManager()->getRepository(Producent::class);
+        $Series = $doctrine->getRepository(Series::class);
+        foreach($array as $elemnt){
+            $entity=$repository->faindIfExist($elemnt->name);
+            if (!$entity){
+                $entity= new Producent();
+            }
+            foreach ($elemnt->series as $serie){
+                $entity->addSeries($Series->findOneBy(['name' => $serie->series_name]));
+            }
+            $em = $doctrine->getManager();
+            $em->persist($entity);
+            $em->flush();
+        }
     }
 
     private function addSeries($array,ManagerRegistry $doctrine){

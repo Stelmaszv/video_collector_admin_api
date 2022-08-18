@@ -27,6 +27,16 @@
                             {{object.name}}
                         </td>
                     </tr>
+                    {% if object.getProducent() != NULL %}
+                        <tr>
+                            <td>
+                                Producent
+                            </td>
+                            <td>
+                                <a href={{path('ProducentsDetail',{id:object.getProducent().getId(),collector:Collector})}}>{{object.getProducent().getDetelName()}}</a>
+                            </td>
+                        </tr>
+                    {% endif %}
                     <tr>
                         <td>
                             Show name
