@@ -14,7 +14,7 @@ use App\Entity\Stars;
 class StarMoviesController extends GenericListController implements GenericSetDataInterFace
 {
     protected bool $paginate = TRUE;
-    protected int $per_page = 10;
+    protected int $per_page = 20;
     private Stars $star;
     public function setData(): void
     {

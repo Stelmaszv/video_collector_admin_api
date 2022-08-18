@@ -78,6 +78,16 @@ SeriesTopStars:
       _format:  html|rss
       year:     \d+
 
+StarInProducentMovieList:
+    path:   /showcollector/topstars/star/in/producent/movielist/{{collector}}/{{star}}/{{producentid}}
+    controller: App\Controller\StarInProducentMovieListController::listView
+    defaults:
+      _format: html
+    requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+
 StarInSeriesMovieList:
     path:   /showcollector/topstars/star/in/series/movielist/{{collector}}/{{star}}/{{seriesid}}
     controller: App\Controller\StarInSeriesMovieListController::listView
@@ -90,7 +100,7 @@ StarInSeriesMovieList:
   
 ProducnetTopStars:
     path:   /showcollector/topstars/producent/{{collector}}/{{id}}
-    controller: App\Controller\ProducnetTopStarsController::detailView
+    controller: App\Controller\ProducnetTopStarsController::listView
     defaults:
       _format: html
     requirements:

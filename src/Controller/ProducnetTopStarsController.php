@@ -3,12 +3,16 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Generic\GenericDetailController;
 use App\Generic\GenericSetDataInterFace;
+use App\Generic\GenericListController;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use App\Entity\Producent;
 
-class ProducnetTopStarsController extends GenericDetailController implements GenericSetDataInterFace
+class ProducnetTopStarsController extends GenericListController implements GenericSetDataInterFace
 {
+    protected bool $paginate = TRUE;
+    protected int $per_page = 20;
+    private Producent $producent;
     public function setData(): void
     {
         $this->setEntity(Producent::class);
@@ -19,7 +23,7 @@ class ProducnetTopStarsController extends GenericDetailController implements Gen
     {
         return  [
             'Collector'   => $this->returnUrlArguments('collector'),
-            'TopStars'    => $this->topStars()
+            'ObjectData' => $this->producent,
         ];
     }
 
@@ -27,16 +31,22 @@ class ProducnetTopStarsController extends GenericDetailController implements Gen
         return $url.'/avatar.jpeg';
     }
 
+    public function onQuerySet(ServiceEntityRepository $entityManager)
+    {
+        $this->producent = $entityManager->find($this->returnUrlArguments('id'));
+        return $this->topStars();
+    }
+
     private function topStars(){
         $top_stars=[];
-        $dir = $this->getObjects()->getDir();
+        $dir = $this->producent->getDir();
         $dir = '../public/collectors/'.$dir.'/stars';
         if (is_dir($dir)){
             if ($dh = opendir($dir)){
               while (($file = readdir($dh)) !== false){
                 if (is_dir($dir)){
                     if ($file != '.'&& $file != '..'){
-                        $show_dir='/collectors//'.$this->getObjects()->getDir().'/stars';
+                        $show_dir='/collectors//'.$this->producent->getDir().'/stars';
                         $top_stars[]=array(
                             'dirname'=>$file,
                             'avatar' =>$this->setTopStarAvatar($show_dir.'/'.$file)
