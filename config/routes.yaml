@@ -118,6 +118,16 @@ ProducnetTopStars:
       _format:  html|rss
       year:     \d+
 
+ProducentBanner:
+    path:   /showcollector/producentsbanners/{{collector}}/{{id}}
+    controller: App\Controller\ProducentBannerController::listView
+    defaults:
+      _format: html
+    requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+
 SeriessBanner:
     path:   /showcollector/seriesbanners/{{collector}}/{{id}}
     controller: App\Controller\SeriessBannerController::listView
