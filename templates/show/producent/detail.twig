@@ -6,10 +6,9 @@
         <h2>{{object.getDetelName()}}</h2>
         <div class="row">
             <div class="col">
-            <img src="/collectors/{{object.avatar}}" width="250" height="250">
+            <img src="{{ object.avatar|photo }}" width="250" height="250">
             </div>
             <div class="col">
-            {{object.description}}
             <table class="table table-bordered">
                 <tbody>
                      <tr>
@@ -33,7 +32,7 @@
                             Show name
                         </td>
                         <td>
-                            {{object.getShowName()}}
+                            {{object.getShowName()|empty}}
                         </td>
                     </tr>
                     <tr>
@@ -49,17 +48,54 @@
                             Country
                         </td>
                         <td>
-                            {{object.getCountry()}}
+                            {{object.getCountry()|empty}}
                         </td>
                     </tr>                    
                 </tbody>
             </table>
+           {{object.description}}
             </div>
         </div>
-        <a href={{path('ProducnetTopStars',{id:object.id,collector:Collector})}}>
+        <div class="row">
+        <a href={{path('SeriesTopStars',{id:object.id,collector:Collector})}}>
             <h2>Top Stars</h2>
         </a>
-        <h2>Photo/Banners</h2>
+            <div class="container text-center">
+                <div class="row">
+                {% for TopStar in TopStars %}
+                    <div class="col">
+                    <a href="{{path('StarInSeriesMovieList',{star:TopStar.dirname,collector:Collector,seriesid:object.id})}}">
+                        <img src="{{TopStar.avatar|photo('star')}}" width="160" height="80" class="img-thumbnail" alt="{{TopStar.dirname}}"><br>
+                        {{TopStar.dirname}}
+                    </a>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+             <a href={{path('SeriessPhotos',{id:object.id,collector:Collector})}}>
+            <h2>Photos<h2>
+        </a>
+        <br>
+            {% for Photo in photos %}
+                <img src="{{Photo}}" width="160" height="80" class="img-thumbnail" alt="{{Photo}}">
+            {% endfor %}
+        </div>
+                <div class="row">
+        <a href={{path('SeriessBanner',{id:object.id,collector:Collector})}}>
+        <h2>Banners<h2>
+        </a>
+        <br>
+            {% for banner in banners %}
+                <img src="{{banner}}" width="860" height="200" class="img-thumbnail" alt="{{banner}}">
+            {% endfor %}
+        </div>
+        <div class="row">
+            <a href="{{path('SeriesMovies',{id:object.id,collector:Collector})}}">
+                <h2>Movies</h2>
+            </a>
+        </div>
         <h2>Series</h2>
         <ul>
             <table class="table">

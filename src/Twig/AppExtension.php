@@ -15,7 +15,7 @@ class AppExtension extends AbstractExtension
         ];
     }
 
-    public function photofilter($avatar,string $code, string $type = 'normal'): string
+    public function photofilter($avatar, string $type = 'normal'): string
     {
         $url_array=explode('\\',$avatar);
         if (count($url_array)<3){

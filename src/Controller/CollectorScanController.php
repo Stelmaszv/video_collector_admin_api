@@ -23,6 +23,7 @@ class CollectorScanController extends AbstractController
         $this->collector=$collector;
         $this->code=$code;
         $this->id=$controllerid;
+        $this->colectorres = $doctrine->getManager()->getRepository(Collectors::class);
         $repository = $doctrine->getManager()->getRepository(UserCollector::class);
         if ($this->canEdit($repository,$controllerid)){
             $json = $this->getDist();
@@ -59,6 +60,7 @@ class CollectorScanController extends AbstractController
             $entity->getNationality($elemnt->nationality);
             $entity->setWeight($elemnt->weight);
             $entity->setHeight($elemnt->height);
+            $entity->setCollectors($this->colectorres->find($this->id));
             $em->persist($entity);
             $em->flush();
         }
@@ -66,7 +68,6 @@ class CollectorScanController extends AbstractController
     
     private function addMovies($array,ManagerRegistry $doctrine){
         $repository = $doctrine->getManager()->getRepository(Movies::class);
-        $colector = $doctrine->getManager()->getRepository(Collectors::class);
         $stars = $doctrine->getRepository(Stars::class);
         foreach($array as $elemnt){
             $entity=$repository->faindIfExist($elemnt->name);
@@ -84,7 +85,7 @@ class CollectorScanController extends AbstractController
             $entity->setPoster($this->getUrl($elemnt->poster));
             $entity->setCover($this->getUrl($elemnt->cover));
             $entity->setSerie($this->setSeries($elemnt->series,$em));
-            $entity->setColector($colector->find($this->id));
+            $entity->setColector($this->colectorres->find($this->id));
             foreach ($elemnt->stars as $star){
                 $entity->addStar($stars->findOneBy(['name' => $star->star_name]));
             }
@@ -124,6 +125,7 @@ class CollectorScanController extends AbstractController
             $entity->setShowName($elemnt->show_name);
             $entity->setDescription($elemnt->description);
             $entity->setCountry($elemnt->country);
+            $entity->setCollector($this->colectorres->find($this->id));
             $em->persist($entity);
             $em->flush();
         }
@@ -162,6 +164,7 @@ class CollectorScanController extends AbstractController
             $entity->setCountry($this->getUrl($elemnt->country));
             $entity->setYears($elemnt->years);
             $entity->setNumberOfSezons($elemnt->number_of_sezons);
+            $entity->setCollectors($this->colectorres->find($this->id));
             $em->persist($entity);
             $em->flush();
         }
