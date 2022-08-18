@@ -82,7 +82,7 @@ class CollectorScanController extends AbstractController
             foreach ($elemnt->stars as $star){
                 $entity->addStar($stars->findOneBy(['name' => $star->star_name]));
             }
-           // $entity->setProducent($this->setProducent($elemnt->producent,$em));
+            $entity->setProducent($this->setSeries($elemnt->series,$em)->getProducent());
             $data= \DateTime::createFromFormat('Y-m-d', $elemnt->date_relesed);
             if ($data){
                 $entity->setDateRelesed($data);
