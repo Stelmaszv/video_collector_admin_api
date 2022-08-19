@@ -18,6 +18,15 @@
                     )}}">
                         Scan
                     </a>
+
+                    <a href="{{path('DumpCollector',
+                        {
+                            id:el.getCollector().getId()
+                        }
+                    
+                    )}}">
+                        Dump
+                    </a>
                 {% endif %}
                     <a href="{{path('MoviesList',
                         {
