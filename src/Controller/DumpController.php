@@ -19,13 +19,8 @@ class DumpController extends AbstractController
         $this->dumpCollector('producents');
         $this->dumpCollector('stars');
         file_put_contents($this->getUrl()."/dump.json", json_encode($this->dump));
-        echo '<pre>';
-        var_dump($this->dump);
-        echo '</pre>';
-        return $this->render('dump/index.html.twig', [
-            'controller_name' => 'DumpController',
-            'url' => $this->getUrl()."dump.json",
-        ]);
+        header('Location: http://'.$_SERVER['SERVER_NAME'].'/'.$this->getUrl()."/dump.json");
+        exit;
     }
 
     private function getCollectorDir(string $series)
@@ -34,7 +29,7 @@ class DumpController extends AbstractController
     }
 
     private function getUrl(){
-        return '../public/collectors/'.$this->collector->getCode().'/'.$this->collector->getName();
+        return 'collectors/'.$this->collector->getCode().'/'.$this->collector->getName();
     }
 
     private function seriesMovies(string $urldir,array $array) : array{
